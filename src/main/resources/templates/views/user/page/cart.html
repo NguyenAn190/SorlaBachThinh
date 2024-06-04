@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Solar Bách Thịnh - Giỏ hàng</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <div th:replace="~{views/user/lib/link_lib}"></div>
+</head>
+
+<body>
+<!-- Spinner Start -->
+<div th:replace="~{views/user/components/spiner}"></div>
+<!-- Spinner End -->
+
+
+<!-- Topbar Start -->
+<div th:replace="~{views/user/components/topbar}"></div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div th:replace="~{views/user/components/navbar}"></div>
+<!-- Navbar End -->
+
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5">
+    <div class="container py-5">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Danh sách giỏ hàng</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="text-white" href="/trang-chu">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="/gio-hang">Giỏ Hàng</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+
+<!-- Service Start -->
+<div class="container-fluid bg-light overflow-hidden px-lg-0" style="margin: 6rem 0;">
+    <section class="h-100" id="cart">
+        <div class="container py-5">
+            <div class="row d-flex justify-content-center my-4">
+                <div class="col-md-8">
+                    <div class="card mb-4">
+                        <div class="card-header py-3 bg-white">
+                            <h5 class="mb-0">Giỏ hàng - <span th:text="${session.cartAmount}"></span> sản phẩm</h5>
+                        </div>
+                        <div class="card-body">
+
+                            <div th:if="${#lists.isEmpty(carts)}">
+                                <p class="text-center">Không có sản phẩm nào trong giỏ hàng...
+                                    <a href="/san-pham">mua hàng ngay</a>
+                                </p>
+                            </div>
+
+                            <!-- Single item start-->
+                            <div th:each="cart : ${carts}" class="row">
+                                <div class="col-lg-3 col-md-12 mb-4 mb-lg-0">
+                                    <!-- Image -->
+                                    <a th:href="@{'/san-pham/san-pham-chi-tiet?ma-san-pham=' + ${cart.productsByProductId.productId}}">
+                                        <div class="bg-image hover-overlay hover-zoom ripple rounded"
+                                             data-mdb-ripple-color="light">
+                                            <img th:src="@{'/upload/' + ${cart.productsByProductId.productImagesByProductId[0].imagePath}}"
+                                                 class="w-100" alt=""/>
+                                            <a href="#">
+                                                <div class="mask"
+                                                     style="background-color: rgba(251, 251, 251, 0.2)"></div>
+                                            </a>
+                                        </div>
+                                    </a>
+                                    <!-- Image -->
+                                </div>
+
+                                <div class="col-lg-5 col-md-6 mb-4 mb-lg-0">
+                                    <!-- Data -->
+                                    <a class="text-dark"
+                                       th:href="@{'/san-pham/san-pham-chi-tiet?ma-san-pham=' + ${cart.productsByProductId.productId}}">
+                                        <p><strong th:text="${cart.productsByProductId.productName}">Đèn năng lượng mặt
+                                            trời Sokoyo AMBO 30W</strong>
+                                        </p>
+                                        <p>Hãng: <span th:text="${cart.productsByProductId.brandsByBrandId.brandName}">
+                                            GoodWe</span>
+                                        </p>
+                                        <p>Công suất: <span th:text="${cart.productsByProductId.power}">10Kw</span></p>
+                                    </a>
+
+                                    <a href="javascript:void(0)" role="button"
+                                       th:attr="onclick='confirmDelete(\'' + ${cart.cartId} + '\')'"
+                                       class="btn btn-danger btn-sm me-1 mb-2" data-mdb-toggle="tooltip"
+                                       title="Remove item"> <i class="fas fa-trash"></i>
+                                    </a>
+                                    <button type="button" class="btn btn-primary btn-sm mb-2"
+                                            data-mdb-toggle="tooltip"
+                                            title="Move to the wish list">
+                                        <i class="fas fa-share"></i>
+                                    </button>
+                                    <!-- Data -->
+                                </div>
+
+                                <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                                    <!-- Quantity -->
+                                    <div class="d-flex mb-4" style="max-width: 300px">
+                                        <div class="mb-3">
+                                            <input type="hidden" class="cart-id" th:value="${cart.cartId}">
+
+                                            <label for="form" class="form-label">Số lượng</label>
+                                            <div class="button-quantity d-flex align-items-center">
+                                                <button class="decrease-quantity btn btn-primary d-flex justify-content-center align-items-center"
+                                                        id="quantityInput" th:data-cartId="${cart.cartId}">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+
+                                                <input name="quantity" th:value="${cart.amount}" type="number"
+                                                       class="form-control quantity-input" id="form" disabled>
+
+                                                <button class="increase-quantity btn btn-primary d-flex justify-content-center align-items-center"
+                                                        data-action="increase">
+                                                    <i class="fas fa-plus"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Quantity -->
+
+                                    <!-- Price -->
+                                    <p class="text-end">
+                                        <strong th:text="'Giá: ' + ${#numbers.formatDecimal(cart.price, 0, 'COMMA', 0, 'POINT').replace(',', '.') + ' ₫'}"></strong>
+                                    </p>
+
+                                    <p class="text-end" th:id="'total_' + ${cart.cartId}">
+                                        <strong th:text="'Tạm tính: ' + ${#numbers.formatDecimal(cart.amount * cart.price, 0, 'COMMA', 0, 'POINT').replace(',', '.') + ' ₫'}"></strong>
+                                    </p>
+                                    <!-- Price -->
+                                </div>
+
+                                <hr class="my-4"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <p><strong>Dự kiến giao hàng</strong></p>
+                            <p class="mb-0">10.9.2023 - 11.10.2023</p>
+                        </div>
+                    </div>
+                    <div class="card mb-4 mb-lg-0">
+                        <div class="card-body  w-100">
+                            <p class="d-flex justify-content-center align-items-center"
+                               style="margin-right: 20px"><strong>Hoặc
+                                thanh toán bằng</strong></p>
+                            <div class="pay d-flex justify-content-center align-items-center">
+                                <img class="me-2" width="45px"
+                                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/visa.svg"
+                                     alt="Visa"/>
+                                <img class="me-2" width="45px"
+                                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/amex.svg"
+                                     alt="American Express"/>
+                                <img class="me-2" width="45px"
+                                     src="https://mdbcdn.b-cdn.net/wp-content/plugins/woocommerce-gateway-stripe/assets/images/mastercard.svg"
+                                     alt="Mastercard"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+
+                    <div class="card mb-4">
+                        <div class="card-header py-3 bg-white">
+                            <h5 class="mb-0"><i class="fa-solid fa-receipt"></i>&nbsp;Chi tiết đơn hàng</h5>
+                        </div>
+                        <div class="card-body">
+                            <form th:action="@{/gio-hang/xac-nhan-thong-tin}" method="get">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                        Tạm tính
+                                        <span id="subtotal"
+                                              th:text="${#numbers.formatDecimal(totalPricePay, 0, 'COMMA', 0, 'POINT').replace(',', '.') + ' ₫'}">100.000 ₫</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
+                                        Giảm giá <span>0 đ</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                                        Phí vận chuyển <span id="shipping">Miễn phí</span>
+                                    </li>
+                                    <li
+                                            class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                                        <div>
+                                            <strong>Tổng tiền</strong>
+                                            <strong><p class="mb-0">(Đã bao gồm phí VAT)</p></strong>
+                                        </div>
+                                        <span id="totalPricePay"
+                                              th:text="${#numbers.formatDecimal(totalPricePay, 0, 'COMMA', 0, 'POINT').replace(',', '.') + ' ₫'}">100.000 ₫</span>
+                                        <input type="hidden" name="tong-gia-tien" th:value="${totalPricePay}">
+                                    </li>
+                                </ul>
+                                <div class="go-to-pay w-100 d-flex justify-content-center align-items-center">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block text-center w-100"
+                                            th:disabled="${#lists.isEmpty(carts)}">
+                                        Tiến hành thanh toán
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!-- Service End -->
+
+<!-- Footer Start -->
+<div th:replace="~{views/user/components/footer}"></div>
+<!-- Footer End -->
+
+<!-- JavaScript Libraries -->
+<div th:replace="~{views/user/lib/script_lib}"></div>
+
+<!-- Ajax increment amount-->
+<script src="/user/assets/js/data/ajax-increase-amount.js"></script>
+<script src="/user/assets/js/data/ajax-discount-code.js"></script>
+
+<script th:inline="javascript">
+    var reloadBack = localStorage.getItem('reloadBack');
+    if (reloadBack === 'true' && window.location.pathname === '/gio-hang') {
+        localStorage.setItem('reloadBack', 'false');
+        // $.ajax({
+        //     type: 'GET',
+        //     url: '/gio-hang/reload-back',
+        //     success: function (data) {
+        //         const totalPricePay = data.totalPricePay;
+        //         const carts = data.carts;
+        //         console.log(totalPricePay)
+        //         console.log(carts)
+        //         for (const cart of carts) {
+        //             console.log(cart)
+        //             console.log(cart.cartId)
+        //             console.log(cart.amount)
+        //             console.log(cart.price)
+        //             updatePriceAndTotalOnViews(cart.cartId, cart.amount, cart.price, totalPricePay)
+        //         }
+        //
+        //     }, error: function (error) {
+        //         console.log(error.text());
+        //     }
+        // });
+        window.location.href = '/gio-hang';
+    }
+</script>
+
+<script>
+    function confirmDelete(id) {
+        Swal.fire({
+            title: 'Cảnh báo ?',
+            text: "Bạn có chắc chắn muốn xoá sản phẩm này ra khỏi giỏ hàng không?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Đồng ý !'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/gio-hang/xoa-gio-hang/" + id;
+            } else {
+                return false;
+            }
+        })
+    }
+</script>
+
+</body>
+</html>

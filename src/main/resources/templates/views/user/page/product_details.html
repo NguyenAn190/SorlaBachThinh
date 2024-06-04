@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Solar Bách Thịnh - Sản Phẩm Chi Tiết</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <div th:replace="~{views/user/lib/link_lib}"></div>
+    <link rel="stylesheet" href="/user/assets/css/product/product.css">
+    <link rel="stylesheet" href="/user/assets/css/product/category-product.css">
+    <link rel="stylesheet" href="/user/assets/css/product/product-type.css">
+</head>
+<body>
+<!-- Spinner Start -->
+<div th:replace="~{views/user/components/spiner}"></div>
+<!-- Spinner End -->
+
+
+<!-- Topbar Start -->
+<div th:replace="~{views/user/components/topbar}"></div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div th:replace="~{views/user/components/navbar}"></div>
+<!-- Navbar End -->
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5">
+    <div class="container py-5">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Sản Phẩm Chi Tiết</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="text-white" href="/trang-chu">Trang Chủ</a></li>
+                <li class="breadcrumb-item" aria-current="page"><a class="text-white" href="/san-pham">Sản Phẩm</a></li>
+                <li class="breadcrumb-item">
+                    <a class="text-white" href="/san-pham/loai-danh-muc?danh-muc=1">
+                        Loại Sản Phẩm
+                    </a>
+                </li>
+                <li class="breadcrumb-item" aria-current="page">
+                    <a class="text-white" href="javascript:void(0)">Sản Phẩm Chi Tiết</a>
+                </li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<div class="container my-5">
+    <div class="row mb-5">
+        <div class="col-lg-6 px-3">
+            <div id="overlay" class="w-100 d-inline-block mb-3 d-flex justify-content-center mb-3"
+                 style="background-color: #F1F1F1;">
+                <img id="overlay-image"
+                     th:if="${product.productImagesByProductId != null and product.productImagesByProductId.size() > 0}"
+                     th:src="@{'/upload/'+${product.productImagesByProductId[0].imagePath}}"
+                     alt="den-nang-luong-mat-troi-sokoyo-solo-15w-h61107">
+                <img th:unless="${product.productImagesByProductId != null and product.productImagesByProductId.size() > 0}"
+                     class="w-50" th:src="@{/upload/default-img.jpg}" alt="Default Image">
+            </div>
+            <div class="row px-2 ps-2">
+                <div class="col-3 col-md-3 col-lg-3 px-1">
+                    <div class="w-100 d-inline-block" style="background-color: #F1F1F1;">
+                        <img class="w-100"
+                             th:if="${product.productImagesByProductId != null and product.productImagesByProductId.size() > 0}"
+                             th:src="@{'/upload/' + ${product.productImagesByProductId[0].imagePath}}"
+                             alt="den-nang-luong-mat-troi-sokoyo-solo-15w-298">
+                        <img th:unless="${product.productImagesByProductId != null and product.productImagesByProductId.size() > 0}"
+                             class="w-50" th:src="@{/upload/default-img.jpg}" alt="Default Image">
+                    </div>
+                </div>
+                <div class="col-3 col-md-3 col-lg-3 px-1">
+                    <div class="w-100 d-inline-block" style="background-color: #F1F1F1;">
+                        <img class="w-100"
+                             th:if="${product.productImagesByProductId != null and product.productImagesByProductId.size() > 0}"
+                             th:src="@{'/upload/' + ${product.productImagesByProductId[1].imagePath}}"
+                             alt="den-nang-luong-mat-troi-sokoyo-solo-15w-298">
+                        <img th:unless="${product.productImagesByProductId != null and product.productImagesByProductId.size() > 0}"
+                             class="w-50" th:src="@{/upload/default-img.jpg}" alt="Default Image">
+                    </div>
+                </div>
+                <div class="col-3 col-md-3 col-lg-3 px-1">
+                    <div class="w-100 d-inline-block" style="background-color: #F1F1F1;">
+                        <img class="w-100"
+                             th:if="${product.productImagesByProductId != null and product.productImagesByProductId.size() > 0}"
+                             th:src="@{'/upload/' + ${product.productImagesByProductId[2].imagePath}}"
+                             alt="den-nang-luong-mat-troi-sokoyo-solo-15w-298">
+                        <img th:unless="${product.productImagesByProductId != null and product.productImagesByProductId.size() > 0}"
+                             class="w-50" th:src="@{/upload/default-img.jpg}" alt="Default Image">
+                    </div>
+                </div>
+                <div class="col-3 col-md-3 col-lg-3 px-1">
+                    <div class="w-100 d-inline-block" style="background-color: #F1F1F1;">
+                        <img class="w-100"
+                             th:if="${product.productImagesByProductId != null and product.productImagesByProductId.size() > 0}"
+                             th:src="@{'/upload/' + ${product.productImagesByProductId[3].imagePath}}"
+                             alt="den-nang-luong-mat-troi-sokoyo-solo-15w-298">
+                        <img th:unless="${product.productImagesByProductId != null and product.productImagesByProductId.size() > 0}"
+                             class="w-50" th:src="@{/upload/default-img.jpg}" alt="Default Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <h6 class="heading_h2 fs-4" th:text="${product.productName}"></h6>
+            <div class="content">
+                <pre class="fs-6" style="text-align: justify; white-space: pre-line; font-family: 'Roboto',sans-serif;"
+                     th:text="${product.descriptions}"></pre>
+            </div>
+            <div class="hot_line mb-2">
+                Hotline: <strong><a href="tel:1800 6567">1800 6567</a></strong>
+            </div>
+            <div class="price-pd text-secondary">
+                <del> Giảm giá: <strong
+                        th:text="${#numbers.formatDecimal(product.saleOff, 0, 'COMMA', 0, 'POINT') + ' đ'}"></strong>
+                </del>
+            </div>
+            <div class="price-pd text-danger">
+                Giá bán: <strong
+                    th:text="${#numbers.formatDecimal(product.price, 0, 'COMMA', 0, 'POINT') + ' đ'}"></strong>
+            </div>
+            <div class="d-flex justify-content-start mt-3">
+                <a href="http://www.facebook.com/sharer.php?u=https://datsolar.com/p/den-nang-luong-mat-troi-sokoyo-solo-15w/"
+                   target="_blank" class="me-2">
+                        <span id="facebook" class="fa-stack fa-lg d-flex justify-content-center align-items-center"
+                              style="background-color: #375da0;">
+                            <i class="fa-brands fa-facebook-f" style="color: #ffffff;"></i>
+                        </span>
+                </a>
+                <a href="http://twitter.com/share?text=[TITLE]&amp;url=https://datsolar.com/p/den-nang-luong-mat-troi-sokoyo-solo-15w/&amp;hashtags=[HASTAG]"
+                   target="_blank" class="me-2">
+                    <span id="twitter" class="fa-stack fa-lg d-flex justify-content-center align-items-center"
+                          style="background-color: #1DA1F2;">
+                    <i class="fa-brands fa-twitter fa-lg" style="color: #ffffff;"></i>
+                    </span>
+                </a>
+                <a href="http://pinterest.com/pin/create/button/?url=https://datsolar.com/p/den-nang-luong-mat-troi-sokoyo-solo-15w/&amp;description=[TITLE]"
+                   class="pin-it-button" count-layout="horizontal" target="_blank">
+                    <span id="pinterest" class="fa-stack fa-lg d-flex justify-content-center align-items-center"
+                          style="background-color: #BD081C;">
+                        <i class="fa-brands fa-pinterest-p" style="color: #ffffff;"></i>
+                    </span>
+                </a>
+            </div>
+            <a href="tel:0967363343"
+               th:if="${product.isStatusDelete == 'Ngừng kinh doanh' and session.account != null}"
+               class="view_more d-flex justify-content-center">
+                Liên hệ mua hàng
+            </a>
+            <a th:href="@{'/san-pham/them-vao-gio-hang/' + ${product.productId}}"
+               th:if="${product.isStatusDelete == 'Đang bán' and session.account != null}"
+               class="view_more d-flex justify-content-center">
+                Thêm vào giỏ hàng
+            </a>
+            <a href="/dang-nhap" th:if="${session.account == null}"
+               class="view_more d-flex justify-content-center">
+                Vui lòng đăng nhập
+            </a>
+        </div>
+    </div>
+    <div class="row product">
+        <div class="col-lg-9 thong-so">
+            <div class="nav_scoll">
+                <ul>
+                    <li>
+                        <a href="#tongquan" class="js-anchor-link active">Tổng quan</a>
+                    </li>
+                    <li>
+                        <a href="#certificate" class="js-anchor-link"> Chứng chỉ</a>
+                    </li>
+                    <li>
+                        <a href="#policy" class="js-anchor-link">Chính sách</a>
+                    </li>
+                    <li>
+                        <a href="#document" class="js-anchor-link">Tài liệu</a>
+                    </li>
+                </ul>
+            </div>
+            <h2 class="heading_h2" id="tongquan">Thông số kỹ thuật</h2>
+            <div class="content mb-5">
+                <table style="border-collapse: collapse; width: 100%; background-color: #f7f7f7;" border="1">
+                    <tbody>
+                    <tr style="height: 24px;">
+                        <td style="width: 50%; height: 24px;"><strong>Công suất:</strong> <span
+                                th:text="${product.power}">20W</span></td>
+                        <td style="width: 50%; height: 24px;"><strong>Pin Lithium LiFePo4:</strong> <span
+                                th:text="${product.brandsByBrandId.brandName}"></span></td>
+                    </tr>
+                    <tr style="height: 24px;">
+                        <td style="width: 50%; height: 24px;"><strong>Thương hiệu:</strong> <span
+                                th:text="${product.brandsByBrandId.brandName}"></span></td>
+                        <td style="width: 50%; height: 24px;"><strong>Tấm pin NLMT:&nbsp;</strong> <span
+                                th:text="${product.productTypesByProductTypeId.productTypeName}"></span></td>
+                    </tr>
+                    <tr style="height: 24px;">
+                        <td style="width: 50%; height: 24px;"><strong>Dòng sản phẩm:</strong> <span
+                                th:text="${product.productTypesByProductTypeId.categorysByCategoryId.categoryName}"></span>
+                        </td>
+                        <td style="width: 50%; height: 24px;"><strong>Chip LED:</strong> LUMILEDS3030</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="content">
+                <p><img class="aligncenter size-full wp-image-15613"
+                        src="/user/assets/img/product-details/5.png"
+                        alt="den-led-nang-luong-mat-troi-sokoyo-teco-20w-h12112" width="700" height="367"
+                        sizes="(max-width: 700px) 100vw, 700px"></p>
+                <p><img class="aligncenter size-full wp-image-15611"
+                        src="/user/assets/img/product-details/4.png"
+                        alt="den-led-nang-luong-mat-troi-sokoyo-teco-20w-h22112" width="700" height="367"
+                        sizes="(max-width: 700px) 100vw, 700px"></p>
+                <p><img class="aligncenter size-full wp-image-16726"
+                        src="/user/assets/img/product-details/3.png"
+                        alt="den-led-nang-luong-mat-troi-sokoyo-teco-20w-1205" width="700" height="366"
+                        sizes="(max-width: 700px) 100vw, 700px"></p>
+                <p><img class="aligncenter size-full wp-image-15607"
+                        src="/user/assets/img/product-details/2.png"
+                        alt="den-led-nang-luong-mat-troi-sokoyo-teco-20w-h42112" width="700" height="367"
+                        sizes="(max-width: 700px) 100vw, 700px"></p>
+                <p><img class="aligncenter size-full wp-image-14131"
+                        src="/user/assets/img/product-details/1.png"
+                        alt="den-led-nang-luong-mat-troi-sokoyo-teco-20w-h10308" width="700" height="366"
+                        sizes="(max-width: 700px) 100vw, 700px"></p>
+                <p class="mt-4 mb-3" id="certificate"><strong>ƯU ĐIỂM VƯỢT TRỘI CỦA SẢN PHẨM</strong></p>
+                <table style="border-collapse: collapse; width: 100%; margin-bottom: 10px;">
+                    <tbody>
+                    <tr>
+                        <td style="width: 6.48149%;"><img class="aligncenter size-full wp-image-14043"
+                                                          src="https://datsolar.com/wp-content/uploads/sites/4/2021/08/icon-den-nlmt-1.png"
+                                                          alt="icon-den-nlmt-1" width="35" height="35"></td>
+                        <td style="width: 93.5184%;">Đèn sử dụng loại Chip LED Philips Lumileds 3030 hiệu suất cao
+                            170lm/W, thương hiệu uy tín Philips của Hà Lan. Tuổi thọ LED &gt; 50.000H (Độ bền tương
+                            đương 12 năm)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 6.48149%;"><img class="aligncenter size-full wp-image-14048"
+                                                          src="https://datsolar.com/wp-content/uploads/sites/4/2021/08/icon-den-nlmt-2.png"
+                                                          alt="icon-den-nlmt-2" width="35" height="35"></td>
+                        <td style="width: 93.5184%;">Pin lưu trữ Lithium LiFePo4 dung lượng 259WH, tuổi thọ lên đến 8
+                            năm
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 6.48149%;"><img class="aligncenter size-full wp-image-14050"
+                                                          src="https://datsolar.com/wp-content/uploads/sites/4/2021/08/icon-den-nlmt-3.png"
+                                                          alt="icon-den-nlmt-3" width="35" height="35"></td>
+                        <td style="width: 93.5184%;">Tấm pin năng lượng mặt trời Poly, 50W/18V, hiệu suất cao, độ bền
+                            trên 25 năm
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 6.48149%;"><img class="aligncenter size-full wp-image-14052"
+                                                          src="https://datsolar.com/wp-content/uploads/sites/4/2021/08/icon-den-nlmt-4.png"
+                                                          alt="icon-den-nlmt-4" width="35" height="35"></td>
+                        <td style="width: 93.5184%;">Bộ điều khiển thông minh: PWM, 12V, 10A, tùy chỉnh độ sáng và giảm
+                            điện năng tiêu thụ, giám sát hoạt động của đèn, kéo dài tuổi thọ của đèn. Giúp đèn tự sáng
+                            khi trời tối, tắt khi trời sáng
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 6.48149%;"><img class="aligncenter size-full wp-image-14054"
+                                                          src="https://datsolar.com/wp-content/uploads/sites/4/2021/08/icon-den-nlmt-5.png"
+                                                          alt="icon-den-nlmt-5" width="35" height="35"></td>
+                        <td style="width: 93.5184%;">Cấp độ bảo vệ IP65 và IK08 giúp đèn có thể làm việc tốt ở nhiệt độ
+                            cao, mưa dài ngày và nhiều bụi bẩn
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="width: 6.48149%;"><img class="aligncenter size-full wp-image-14056"
+                                                          src="https://datsolar.com/wp-content/uploads/sites/4/2021/08/icon-den-nlmt-6.png"
+                                                          alt="icon-den-nlmt-6" width="35" height="35"></td>
+                        <td style="width: 93.5184%;">Thời gian chiếu sáng (trường hợp ban ngày hoàn toàn không có nắng):
+                            3 đêm
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p><strong>Ngoài ra:</strong></p>
+                <ul>
+                    <li>Thiết kế được cấp bằng sáng chế dễ dàng mở, bảo trì thuận tiện</li>
+                    <li>Kiểu phân bố ánh sáng: Chóa đèn loại cánh dơi, góc chiếu rộng (150° x 75°), độ đồng đều ánh sáng
+                        tốt
+                    </li>
+                    <li>Kết nối IOT: Giám sát hệ thống thông minh trên điện thoại (tùy chọn)</li>
+                    <li>Đạt chứng chỉ: CE, IEC, RoHS…</li>
+                </ul>
+                <p><strong>AN TÂM KHI SỬ DỤNG CÁC SẢN PHẨM ĐÈN NĂNG LƯỢNG MẶT TRỜI SOKOYO</strong></p>
+                <ul>
+                    <li>Sokoyo thành lập từ năm 2008, nằm trong&nbsp;top 10 về sản phẩm đèn năng lượng mặt trời trên
+                        toàn cầu.
+                    </li>
+                    <li>Nhà sản xuất chuyên nghiệp về đèn đường năng lượng mặt trời với diện tích nhà máy hơn 80.000m2,
+                        có thể đáp ứng công suất hằng năm hơn 250.000 bộ cho thị trường.
+                    </li>
+                    <li>Phòng thí nghiệm, kiểm tra sản phẩm hiện đại theo tiêu chuẩn quốc tế có diện tích trên 1.000m2
+                        với đầy đủ các thiết bị như máy đo quang học, đo cấp độ bảo vệ IP, máy kiểm tra nhiệt độ, mô
+                        phỏng môi trường khắc nghiệt đảm bảo an toàn về điện, quang học, cũng như hiệu suất vật lý của
+                        từng sản phẩm.
+                    </li>
+                    <li>Sản phẩm đạt tiêu chuẩn quốc tế như: CE, RoHS, TUV, IEC, CQC, Golden Sun, CB… mang đến chất
+                        lượng và hiệu quả tốt nhất, cùng sự an tâm, hài lòng cho khách hàng.
+                    </li>
+                </ul>
+                <p style="text-align: justify;" id="policy"><strong>LÝ DO LỰA CHỌN SOLAR BÁCH THỊNH ?</strong></p>
+                <div class="row mb-3">
+                    <div class="col-lg-6"><img class="aligncenter size-full wp-image-19578"
+                                               src="https://datsolar.com/wp-content/uploads/sites/4/2022/07/Sokoyo-Certificate-Distributor-2023.jpg"
+                                               alt="Certificate Distributor" width="300" height="424"
+                                               srcset="https://datsolar.com/wp-content/uploads/sites/4/2022/07/Sokoyo-Certificate-Distributor-2023.jpg 300w, https://datsolar.com/wp-content/uploads/sites/4/2022/07/Sokoyo-Certificate-Distributor-2023-212x300.jpg 212w"
+                                               sizes="(max-width: 300px) 100vw, 300px"></div>
+                    <div class="col-lg-6"><img class="aligncenter size-full wp-image-19580"
+                                               src="https://datsolar.com/wp-content/uploads/sites/4/2022/07/Sokoyo-Certificate-Service_Center-2023.jpg"
+                                               alt="Certificate Service Center" width="300" height="424"
+                                               srcset="https://datsolar.com/wp-content/uploads/sites/4/2022/07/Sokoyo-Certificate-Service_Center-2023.jpg 300w, https://datsolar.com/wp-content/uploads/sites/4/2022/07/Sokoyo-Certificate-Service_Center-2023-212x300.jpg 212w"
+                                               sizes="(max-width: 300px) 100vw, 300px"></div>
+                </div>
+                <p style="text-align: justify;">Solar Bách Thịnh là Nhà phân phối độc quyền và Trung tâm dịch vụ của
+                    Sokoyo tại
+                    Việt Nam, cam kết mang đến những sản phẩm chuẩn mực chất lượng, đầy đủ CO, CQ, chứng nhận CE, RoHS,
+                    IEC, ISO, CB… đáp ứng đa dạng nhu cầu; đặc biệt cho các dự án thầu công, dự án chiếu sáng đường nông
+                    thôn, chiếu sáng đô thị.</p>
+                <p style="text-align: justify;">Solar Bách Thịnh sẽ hỗ trợ tư vấn, thiết kế giải pháp chiếu sáng, hệ
+                    thống giám
+                    sát IoT, đồng hành cùng đối tác trong việc triển khai lắp đặt trọn gói, giúp khách hàng gia tăng
+                    hiệu quả.</p>
+                <p style="text-align: justify;">Hỗ trợ cấu hình sản phẩm theo nhu cầu, đồng hành cùng nhà thầu, đại lý
+                    bảo hành và dịch vụ sau bán hàng.</p>
+                <p id="document"><img class="aligncenter size-full wp-image-9619"
+                                      src="https://datsolar.com/wp-content/uploads/sites/4/2021/05/den-led-nang-luong-mat-troi-sokoyo-nova-30w-40w-50w-60w-h13.jpg"
+                                      alt="den-led-nang-luong-mat-troi-sokoyo-nova-30w-40w-50w-60w-h13" width="911"
+                                      height="608"
+                                      srcset="https://datsolar.com/wp-content/uploads/sites/4/2021/05/den-led-nang-luong-mat-troi-sokoyo-nova-30w-40w-50w-60w-h13.jpg 911w, https://datsolar.com/wp-content/uploads/sites/4/2021/05/den-led-nang-luong-mat-troi-sokoyo-nova-30w-40w-50w-60w-h13-300x200.jpg 300w, https://datsolar.com/wp-content/uploads/sites/4/2021/05/den-led-nang-luong-mat-troi-sokoyo-nova-30w-40w-50w-60w-h13-768x513.jpg 768w"
+                                      sizes="(max-width: 911px) 100vw, 911px"></p>
+                <p style="text-align: justify;">Hàng hóa, thiết bị luôn có sẵn tại Việt Nam, đối tác không cần đầu tư
+                    kho bãi, không tốn chi phí nhân sự quản lý nhập khẩu, chi phí quản lý kho.</p>
+                <p style="text-align: justify;">Solar Bách Thịnh đại diện hãng thực hiện chính sách bảo hành chính hãng
+                    ngay
+                    tại Việt Nam.</p>
+                <p style="text-align: justify;">Các trung tâm dịch vụ kỹ thuật Solar Bách Thịnh có mặt tại An Giang, hỗ
+                    trợ khách hàng, đối tác toàn diện.</p>
+                <p style="text-align: justify;">Tất cả sản phẩm do Solar Bách Thịnh cung cấp đều được bảo hành điện tử
+                    chính
+                    hãng. Khách hàng có thể cài đặt và kiểm tra thời gian, chính sách bảo hành tại Website SOLAR BÁCH
+                    THỊNH trên
+                <p style="text-align: justify;">Với hơn 400 nhân sự giàu kinh nghiệm luôn sẵn sàng hỗ trợ 24/7 trước và
+                    sau bán hàng, Solar Bách Thịnh cam kết đảm bảo chất lượng toàn bộ sản phẩm phân phối trên toàn quốc,
+                    cung
+                    cấp giải pháp thông minh hỗ trợ khách hàng tiết kiệm thời gian và chi phí.</p>
+                <p style="text-align: justify;">Trở thành đối tác: Solar Bách Thịnh cam kết cung cấp trọn gói sản
+                    phẩm/giải
+                    pháp, đồng hành và hỗ trợ về chính sách, công cụ, đào tạo, khách hàng và kỹ thuật.</p>
+            </div>
+            <div class="number_partner">
+                <div class="item">
+                    <img src="https://datsolar.com/wp-content/uploads/sites/4/2020/07/medal.png" alt="medal">
+                    <h5>17+</h5>
+                    <div class="content">
+                        Năm kinh nghiệm
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="https://datsolar.com/wp-content/uploads/sites/4/2020/07/user.png" alt="">
+                    <h5>400+</h5>
+                    <div class="content">
+                        Nhân sự. 41% kỹ sư chuyên môn cao
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="https://datsolar.com/wp-content/uploads/sites/4/2020/07/storage.png" alt="storage">
+                    <h5>10.000+</h5>
+                    <div class="content">
+                        Hệ thống ĐMT với tổng công suất 800MW trên toàn quốc
+                    </div>
+                </div>
+                <div class="item">
+                    <img src="https://datsolar.com/wp-content/uploads/sites/4/2020/07/refresh.png" alt="">
+                    <h5>100MWp</h5>
+                    <div class="content">
+                        Năng lực cung cấp thiết bị lên đến 100MWp mỗi tháng
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-3">
+            <div class="menu_right_top">
+                <h3><i class="fa fa-bars" aria-hidden="true"></i>DANH MỤC</h3>
+                <ul>
+                    <li>
+                        <a href="https://drive.google.com/file/d/1SwLmhvROYdUW2RmIPduQG0-HtQPKHJeS/view?usp=share_link"
+                           target="_blank" style="display: flex; align-items: center; text-decoration: none;">
+                            <img src="https://datsolar.com/wp-content/uploads/sites/4/2020/07/signing-the-contract.png"
+                                 alt="" style="max-height: 100%; max-width: 100%;">
+                            HỒ SƠ NĂNG LỰC
+                        </a>
+
+                    </li>
+                </ul>
+            </div>
+
+            <div class="top_menu">
+                <ul>
+                    <li class="active" th:each="item : ${categories}" th:if="${item.active}">
+                        <a th:href="@{'/san-pham/loai-danh-muc?danh-muc=' + ${item.categoryId}}">
+                            <img class="m-auto pb-3"
+                                 th:src="@{/upload/{img}(img = ${item.categoryImage})}"
+                                 alt="den-nang-luong-mat-troi-thumbnail">
+                            <p th:text="${item.categoryName}"></p>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="/san-pham">
+                            <img class="m-auto pb-3"
+                                 src="/upload/clipboard-1.png"
+                                 alt="den-nang-luong-mat-troi-thumbnail">
+                            <p>Tất cả</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="product_template mt-4 mb-4 wow fadeInUp" data-wow-delay="fade-up">
+                <div class="title_cart d-flex align-items-center mb-3">
+                    <div class="title-card-box d-flex align-items-center h-100">
+                        <div class="category_product fw-bold">
+                            <span>Sản phẩm liên quan</span>
+                        </div>
+                    </div>
+                    <div class="see_more fw-bold">
+                        <a href="/san-pham">Xem thêm...</a>
+                    </div>
+                </div>
+                <div class="slide_product">
+                    <!-- Swiper -->
+                    <div class="swiper" id="product_pin">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide" th:each="item : ${products}">
+                                <div class="item">
+                                    <div class="item-product d-flex align-items-center">
+                                        <div class="img">
+                                            <img th:src="@{/upload/{img}(img = ${item.productImagesByProductId[0].imagePath})}"
+                                                 class="img-fluid" style="width: 200px" alt="...">
+                                        </div>
+                                        <div class="card-body-product">
+                                            <p class="name-product" th:text="${item.productName}"></p>
+                                            <div class="content-product mb-3">
+                                                <span>Công suất: <b th:text="${item.power}"></b></span>
+                                                <span>Hãng: <b th:text="${item.brandsByBrandId.brandName}"></b></span>
+                                            </div>
+                                            <div class="btn-add-cart">
+                                                <a th:href="@{'/san-pham/san-pham-chi-tiet?ma-san-pham=' + ${item.productId}}"
+                                                   role="button" type="submit" class="btn btn-primary w-100">
+                                                    Mua hàng</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-button-next"></div>
+                        <div class="swiper-button-prev"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer Start -->
+<div th:replace="~{views/user/components/footer}"></div>
+<!-- Footer End -->
+
+<link href="/user/assets/css/product/product-detail.css" rel="stylesheet">
+
+<!-- JavaScript Libraries -->
+<div th:replace="~{views/user/lib/script_lib}"></div>
+
+<!-- JavaScript main-->
+<script src="/user/assets/js/product.js"></script>
+
+<!-- active nav link product details-->
+<script src="/user/assets/js/product/active-navlink.js"></script>
+</body>
+</html>

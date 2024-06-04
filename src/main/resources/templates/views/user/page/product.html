@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Solar Bách Thịnh - Sản Phẩm</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <div th:replace="~{views/user/lib/link_lib}"></div>
+    <link rel="stylesheet" href="/user/assets/css/product/product.css">
+    <link rel="stylesheet" href="/user/assets/css/product/category-product.css">
+</head>
+
+<body>
+<!-- Spinner Start -->
+<div th:replace="~{views/user/components/spiner}"></div>
+<!-- Spinner End -->
+
+<!-- JavaScript Libraries -->
+<div th:replace="~{views/user/lib/script_lib}"></div>
+
+<!-- Topbar Start -->
+<div th:replace="~{views/user/components/topbar}"></div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div th:replace="~{views/user/components/navbar}"></div>
+<!-- Navbar End -->
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5">
+    <div class="container py-5">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Sản Phẩm</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="text-white" href="/trang-chu">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="/san-pham">Sản Phẩm</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+<!-- Navbar Start -->
+<section id="category-product">
+    <div class="bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12 col-xl-6 d-flex align-items-center">
+
+                    <form action="/san-pham" method="get">
+                        <div class="find d-flex align-items-center justify-content-center">
+                            <input type="text" class="input-text" name="ten-san-pham" placeholder="Tìm sản phẩm">
+                            <button type="submit" class="btn-find btn"><i class='bx bx-search-alt-2'></i></button>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="col-xl-6 d-flex d-xs-none">
+                    <div th:each="item : ${categories}" th:if="${item.active}"
+                         class="category-product d-flex justify-content-center align-items-center">
+                        <div class="category-product-item">
+                            <a th:href="@{'/san-pham/loai-danh-muc?danh-muc=' + ${item.categoryId}}">
+                                <div class="card-category text-center">
+                                    <div class="img text-center">
+                                        <img th:src="@{/upload/{img}(img = ${item.categoryImage})}"
+                                             class="card-img-top img-fluid" alt="...">
+                                    </div>
+                                    <div class="body" th:text="${item.categoryName}"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Navbar End -->
+
+<!-- Product Start -->
+<main id="product mt-5">
+    <div class="container">
+        <div class="page mt-5 mb-4"><h1>Danh sách sản phẩm</h1></div>
+
+        <!--Start Solar Light-->
+        <div class="product_template mt-4 mb-4" data-aos="fade-up"
+             th:each="category : ${categories_productsType_products}">
+            <th:block
+                    th:with="result=${@productController.isProductListInCategoryNotEmpty(categories_productsType_products, category.getCategoryId())}">
+                <!-- Kiểm tra xem danh sách loại sản phẩm của danh mục có rỗng không -->
+                <th:block th:if="${result}">
+                    <div class="title_cart mt-4 d-flex align-items-center mb-3">
+                        <div class="title-card-box d-flex align-items-center h-100">
+                            <div class="category_product">
+                                <span th:text="${category.categoryName}"></span>
+                            </div>
+                        </div>
+                        <a class="see_more"
+                           th:href="@{'/san-pham/loai-danh-muc?danh-muc=' + ${category.categoryId}}">Xem
+                            thêm...</a>
+                    </div>
+                    <div class="slide_product">
+                        <!-- Swiper -->
+                        <div class="swiper" id="product_light">
+                            <div class="swiper-wrapper">
+                                <!-- Lặp qua loại sản phẩm trong danh mục -->
+                                <th:block th:each="productType : ${category.productTypesByCategoryId}">
+                                    <!-- Kiểm tra xem danh sách sản phẩm của loại sản phẩm có rỗng không -->
+                                    <th:block th:if="${productType.productsByProductTypeId.size() > 0}">
+                                        <!-- Lặp qua danh sách sản phẩm của loại sản phẩm -->
+                                        <th:block th:each="product : ${productType.productsByProductTypeId}"
+                                                  th:if="${product.isStatusDelete == 'Đang bán'}">
+                                            <div class="swiper-slide">
+                                                <div class="item-product d-flex align-items-center">
+                                                    <div class="img">
+                                                        <img th:if="${product.productImagesByProductId.size() > 0}"
+                                                             th:src="@{'/upload/'+${product.productImagesByProductId[0].imagePath}}"
+                                                             class="img-fluid" style="width: 200px" alt="...">
+                                                        <img th:unless="${product.productImagesByProductId.size() > 0}"
+                                                             th:src="@{'/upload/default-img.jpg'}"
+                                                             class="img-fluid" style="width: 200px" alt="...">
+                                                    </div>
+                                                    <div class="card-body-product">
+                                                        <p class="name-product"
+                                                           th:text="${product.productName}"></p>
+                                                        <div class="content-product mb-3">
+                                                                <span>Công suất: <b
+                                                                        th:text="${product.power}"></b></span>
+                                                            <span>Hãng: <b
+                                                                    th:text="${product.brandsByBrandId.brandName}"></b></span>
+                                                        </div>
+                                                        <div class="btn-add-cart">
+                                                            <a th:href="@{'/san-pham/san-pham-chi-tiet?ma-san-pham=' + ${product.productId}}"
+                                                               role="button"
+                                                               class="btn btn-primary w-100">Xem chi tiết
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </th:block>
+                                    </th:block>
+                                </th:block>
+                            </div>
+                            <div class="swiper-button-next"></div>
+                            <div class="swiper-button-prev"></div>
+                        </div>
+                    </div>
+                </th:block>
+            </th:block>
+        </div>
+
+        <!--End Solar Light-->
+    </div>
+</main>
+<!-- Product End -->
+
+
+<!-- Footer Start -->
+<div th:replace="~{views/user/components/footer}"></div>
+<!-- Footer End -->
+
+
+<!-- JavaScript main-->
+<script src="/user/assets/js/product.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+.drop-container {
+    position: relative;
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px dashed lightgray;
+    color: #444;
+    cursor: pointer;
+    transition: background .2s ease-in-out, border .2s ease-in-out;
+    margin-bottom: 22px;
+}
+
+.drop-container:hover {
+    background: #f3f3f3;
+    border-color: rgba(130, 130, 130, 0.66);
+}
+
+.drop-container:hover .drop-title {
+    color: #6f6f6f;
+}
+
+.drop-title {
+    color: #8b8b8b;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    transition: color .2s ease-in-out;
+}
+
+/* Hide the file input */
+input[type="file"] {
+    display: none;
+}
+
+/* Style for the icon (you can change the icon content) */
+.file-icon::before {
+    content: "\f019"; /* This is a font-awesome upload icon (you can replace it with your own icon) */
+    font-family: FontAwesome, serif;
+    font-size: 60px;
+    color: #4DC7A0;
+}
+
+.image-show{
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 200px;
+    margin-bottom: 10px;
+}
+
+/* Style for the image preview */
+.image-preview {
+    max-width: 100%;
+    max-height: 60px;
+    margin-bottom: 10px;
+    display: none; /* Initially hide the image */
+}

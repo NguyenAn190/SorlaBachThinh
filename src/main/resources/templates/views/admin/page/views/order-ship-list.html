@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solar Bách Thịnh - Đơn đã vận chuyển</title>
+    <div th:replace="~{views/admin/lib/link_lib}"></div>
+</head>
+<body>
+
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+
+    <!-- Sidebar Start -->
+    <div th:replace="~{views/admin/components/aside}"></div>
+    <!--  Sidebar End -->
+
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <div th:replace="~{views/admin/components/header}"></div>
+        <!--  Header End -->
+
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <a class="btn btn-danger float-end" href="/admin/xac-nhan-don-hang" role="button">
+                        <i class="ti ti-file-plus"></i> Trở về
+                    </a>
+                    <h5 class="card-title fw-semibold mb-4 mt-2">Danh sách đơn hàng đã vận chuyển</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="sortShipOrder">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Mã ĐH</th>
+                                        <th scope="col">Tên KH</th>
+                                        <th scope="col">SĐT</th>
+                                        <th scope="col">Ngày đặt hàng</th>
+                                        <th scope="col">Tổng tiền</th>
+                                        <th scope="col">Trạng thái</th>
+                                        <th scope="col">Hành động</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="order, start : ${orders}">
+                                        <th:block
+                                                th:if="${order.statusOrder == 'Đang vận chuyển' && order.statusPayment != 'Đã huỷ đơn'}">
+                                            <td th:text="${start.index + 1}"></td>
+                                            <td th:text="${order.orderId}"></td>
+                                            <td th:text="${order.cartItem.accountsByAccountId.fullname}"
+                                                class="hidden-text-table"></td>
+                                            <td th:text="${order.cartItem.accountsByAccountId.phoneNumber}"></td>
+                                            <td th:text="${#dates.format(order.createdAt, 'dd/MM/yyyy HH:mm')}"></td>
+                                            <td th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT') + ' đ'}"></td>
+                                            <td th:if="${order.statusOrder == 'Đang vận chuyển'}">
+                                                <i class='bx bxs-circle' style='color:#3a9b54'></i> Đang vận chuyển
+                                            </td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a th:href="@{'/admin/xac-nhan-thong-tin/' + ${order.orderId}}"
+                                                       class="btn btn-warning ms-2" data-bs-toggle="modal"
+                                                       data-bs-target="#modal-confirm-data">Chi tiết
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </th:block>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="modal-confirm-data" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xác nhận thông tin đơn hàng</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="row">
+                <div class="col-6 col-lg-6">
+                    <div class="modal-body w-100">
+                        <div class="mb-3">
+                            <label for="full_name" class="form-label">Tên khách hàng</label>
+                            <input type="text" class="form-control" id="full_name" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="phone_number" class="form-label">Số điện thoại</label>
+                            <input type="text" class="form-control" id="phone_number" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="email" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="city" class="form-label">Tỉnh thành</label>
+                            <input type="text" class="form-control" id="city" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="district" class="form-label">Quận/Huyện</label>
+                            <input type="text" class="form-control" id="district" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="ward" class="form-label">Phường/Xã</label>
+                            <input type="text" class="form-control" id="ward" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-6">
+                    <div class="modal-body w-100">
+                        <div class="mb-3">
+                            <label for="madh" class="form-label">Mã đơn hàng</label>
+                            <input type="text" name="orderId" class="form-control" id="madh" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="address-edit-customer" class="form-label">Địa chỉ cụ thể</label>
+                            <input type="text" class="form-control" id="address-edit-customer" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="datePayment" class="form-label">Ngày đặt hàng</label>
+                            <input type="text" class="form-control" id="datePayment" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="payment" class="form-label">Hình thức thanh toán</label>
+                            <input type="text" class="form-control" id="payment" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="satusPayment" class="form-label">Trang thái thanh toán</label>
+                            <input type="text" class="form-control" id="satusPayment" readonly>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="statusOrder" class="form-label">Trạng thái đơn hàng</label>
+                            <input type="text" class="form-control" id="statusOrder" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-lg-12">
+                    <table id="table-modal"
+                           class="table table-striped table-inverse table-responsive table-bordered">
+                        <thead class="thead-inverse">
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Giá tiền</th>
+                            <th>Số lượng</th>
+                            <th>Tổng tiền</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h6 class="d-flex justify-content-end mx-4">Tổng thanh toán: <span id="totalPricePay"></span>
+                    </h6>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{views/admin/lib/script_lib}"></div>
+<script src="/admin/assets/js/ajax/ajax-show-modal-confirm-oder.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solar Bách Thịnh - Sản Phẩm</title>
+
+    <div th:replace="~{views/admin/lib/link_lib}"></div>
+</head>
+<body>
+
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+
+    <!-- Sidebar Start -->
+    <div th:replace="~{views/admin/components/aside}"></div>
+    <!--  Sidebar End -->
+
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <div th:replace="~{views/admin/components/header}"></div>
+        <!--  Header End -->
+
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4 mt-2">Doanh thu theo tháng</h5>
+
+                    <!--Bắt đầu doanh thu tháng-->
+                    <div class="container-fluid">
+                        <!--  Row 1 -->
+                        <div class="row">
+                            <div class="col-lg-8 d-flex align-items-strech">
+                                <div class="card w-100">
+                                    <div class="card-body">
+                                        <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                                            <div class="mb-3 mb-sm-0">
+                                                <h5 class="card-title fw-semibold">Biểu đồ thống kê doanh thu tháng</h5>
+                                            </div>
+                                            <div>
+                                                <select class="form-select" id="monthSelect"
+                                                        onchange="redirectToMonth()">
+                                                    <option th:each="monthvalue : ${listMonthValue}"
+                                                            th:value="${monthvalue}"
+                                                            th:text="${monthvalue}"
+                                                            th:selected="${monthvalue} == ${listMonthValue.get(locationSelectedMonth)}"
+                                                    ></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="chart"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <script>
+                                function redirectToMonth() {
+                                    var selectedValue = document.getElementById("monthSelect").value;
+                                    var parts = selectedValue.split(' ');
+                                    var monthNumber = parseInt(parts[1], 10);
+
+                                    window.location.href = "/admin/doanhthu/theo-thang/" + monthNumber;
+                                }
+                            </script>
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <!-- Yearly Breakup -->
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body p-4">
+                                                <h5 class="card-title mb-9 fw-semibold">Doanh thu trong tháng</h5>
+                                                <div class="row align-items-center">
+                                                    <div class="col-12">
+                                                        <h4 class="fw-semibold mb-3"
+                                                            th:text="${#numbers.formatDecimal(revenueForTheMonth, 0, 'COMMA', 0, 'POINT') + ' ₫'}"></h4>
+                                                        <div th:if="${percentageDecrease.getStatus() == 'Tăng'}"
+                                                             class="d-flex align-items-center mb-3">
+                                              <span class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
+                                                <i class="ti ti-arrow-up-left text-success"></i>
+                                              </span>
+                                                            <p class="text-dark me-1 fs-3 mb-0"
+                                                               th:text="'+' + ${#numbers.formatDecimal(percentageDecrease.getPercentage(), 0, 'COMMA', 0, 'POINT')} + '%'"></p>
+                                                            <p class="fs-3 mb-0">Tháng trước</p>
+                                                        </div>
+                                                        <div th:if="${percentageDecrease.getStatus() == 'Giảm'}"
+                                                             class="d-flex align-items-center mb-3">
+                                              <span class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
+                                                <i class="ti ti-arrow-down-right text-danger"></i>
+                                              </span>
+                                                            <p class="text-dark me-1 fs-3 mb-0"
+                                                               th:text="'-' + ${#numbers.formatDecimal(percentageDecrease.getPercentage(), 0, 'COMMA', 0, 'POINT')} + '%'"></p>
+                                                            <p class="fs-3 mb-0">Tháng trước</p>
+                                                        </div>
+                                                        <div th:if="${percentageDecrease.getStatus() == 'Không thay đổi'}"
+                                                             class="d-flex align-items-center mb-3">
+                                              <span class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
+                                                <i class="ti ti-arrow-down-right text-danger"></i>
+                                              </span>
+                                                            <p class="text-dark me-1 fs-3 mb-0"
+                                                               th:text="${#numbers.formatDecimal(percentageDecrease.getPercentage(), 0, 'COMMA', 0, 'POINT')} + '%'"></p>
+                                                            <p class="fs-3 mb-0">Tháng trước</p>
+                                                        </div>
+                                                        <div class="d-flex align-items-center">
+                                                            <div class="me-4">
+                                                                <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
+                                                                <span class="fs-2"
+                                                                      th:text="${'Tháng ' + monthNow}"></span>
+                                                            </div>
+                                                            <div>
+                                                                <span class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"></span>
+                                                                <span class="fs-2"
+                                                                      th:text="${'Tháng ' + monthLast}"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <!-- Monthly Earnings -->
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="row alig n-items-start">
+                                                    <div class="col-9">
+                                                        <h5 class="card-title mb-9 fw-semibold">Tổng sản phẩm bán trong
+                                                            tháng</h5>
+                                                        <h4 class="fw-semibold mb-3"
+                                                            th:text="${numberOfProductsInTheMonth}"></h4>
+                                                        <div th:if="${percentageDecrease.getStatus() == 'Tăng'}"
+                                                             class="d-flex align-items-center mb-3">
+                                                              <span class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
+                                                                <i class="ti ti-arrow-up-left text-success"></i>
+                                                              </span>
+                                                            <p class="text-dark me-1 fs-3 mb-0"
+                                                               th:text="'+' + ${#numbers.formatDecimal(compareRevenueAmount.getPercentage(), 0, 'COMMA', 0, 'POINT')} + '%'"></p>
+                                                            <p class="fs-3 mb-0">Tháng trước</p>
+                                                        </div>
+                                                        <div th:if="${percentageDecrease.getStatus() == 'Giảm'}"
+                                                             class="d-flex align-items-center mb-3">
+                                              <span class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
+                                                <i class="ti ti-arrow-down-right text-danger"></i>
+                                              </span>
+                                                            <p class="text-dark me-1 fs-3 mb-0"
+                                                               th:text="'-' + ${#numbers.formatDecimal(compareRevenueAmount.getPercentage(), 0, 'COMMA', 0, 'POINT')} + '%'"></p>
+                                                            <p class="fs-3 mb-0">Tháng trước</p>
+                                                        </div>
+                                                        <div th:if="${percentageDecrease.getStatus() == 'Không thay đổi'}"
+                                                             class="d-flex align-items-center mb-3">
+                                              <span class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
+                                                <i class="ti ti-arrow-down-right text-danger"></i>
+                                              </span>
+                                                            <p class="text-dark me-1 fs-3 mb-0"
+                                                               th:text="${#numbers.formatDecimal(compareRevenueAmount.getPercentage(), 0, 'COMMA', 0, 'POINT')} + '%'"></p>
+                                                            <p class="fs-3 mb-0">Tháng trước</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="d-flex justify-content-end">
+                                                            <div
+                                                                    class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
+                                                                <i class="ti ti-currency-dollar fs-6"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="earning"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class=" d-flex align-items-stretch">
+                            <div class="card w-100">
+                                <div class="card-body p-4">
+                                    <h5 class="card-title fw-semibold mb-4">Sản phẩm đã bán trong tháng</h5>
+                                    <div class="table-responsive">
+                                        <table class="table text-nowrap mb-0 align-middle"
+                                               id="tableSortStatisticsMonth">
+                                            <thead class="text-dark fs-4">
+                                            <tr>
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">Mã sản phẩm</h6>
+                                                </th>
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">Hãng</h6>
+                                                </th>
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">Tên sản phẩm</h6>
+                                                </th>
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">Số lượng bán</h6>
+                                                </th>
+                                                <th class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0">Tổng thu nhập</h6>
+                                                </th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="product : ${statisticsOfBestSellingProducts}">
+                                                <td class="border-bottom-0"><h6 class="fw-semibold mb-0"
+                                                                                th:text="${product.cartItem.productId}"></h6>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-1"
+                                                        th:text="${product.cartItem.productsByProductId.brandsByBrandId.brandName}"></h6>
+                                                    <span class="fw-normal"></span>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <p class="mb-0 fw-normal"
+                                                       th:text="${product.cartItem.productsByProductId.productName}"></p>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <div class="d-flex align-items-center gap-2">
+                                                        <span class="badge bg-primary rounded-3 fw-semibold"
+                                                              th:text="${product.cartItem.amount}"></span>
+                                                    </div>
+                                                </td>
+                                                <td class="border-bottom-0">
+                                                    <h6 class="fw-semibold mb-0 fs-4"
+                                                        th:text="${#numbers.formatDecimal(product.totalAmount, 0, 'COMMA', 0, 'POINT')}"></h6>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{views/admin/lib/script_lib}"></div>
+
+<script>
+    $(function () {
+        // Profit
+        var chart = {
+            series: [{
+                name: "Lợi nhuận tháng này", data: [[${revenueData}]]
+            }],
+
+            chart: {
+                type: "bar",
+                height: 345,
+                offsetX: -15,
+                toolbar: {show: true},
+                foreColor: "#adb0bb",
+                fontFamily: 'inherit',
+                sparkline: {enabled: false},
+            },
+
+            colors: ["#5D87FF", "#49BEFF"],
+
+            plotOptions: {
+                bar: {
+                    horizontal: false,
+                    columnWidth: "35%",
+                    borderRadius: [6],
+                    borderRadiusApplication: 'end',
+                    borderRadiusWhenStacked: 'all'
+                },
+            }, markers: {size: 0},
+
+            dataLabels: {
+                enabled: false,
+            },
+
+            legend: {
+                show: false,
+            },
+
+            grid: {
+                borderColor: "rgba(0,0,0,0.1)", strokeDashArray: 3, xaxis: {
+                    lines: {
+                        show: false,
+                    },
+                },
+            },
+
+            xaxis: {
+                type: "category",
+                categories: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+                labels: {
+                    style: {cssClass: "grey--text lighten-2--text fill-color"},
+                },
+            },
+
+            yaxis: {
+                show: true, min: 0, max: 500000000, tickAmount: 4, labels: {
+                    style: {
+                        cssClass: 'grey--text lighten-2--text fill-color',
+                    },
+                    formatter: function (value) {
+                        return formatCurrency(value);
+                    },
+                },
+            },
+
+            tooltip: {theme: "light"},
+
+            responsive: [{
+                breakpoint: 600, options: {
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 3,
+                        }
+                    },
+                }
+            }]
+        };
+        var charts = new ApexCharts(document.querySelector("#chart"), chart);
+        charts.render();
+
+
+        // Breakup
+        var breakup = {
+            color: "#adb5bd", series: [38, 40, 25], labels: ["2022", "2021", "2020"], chart: {
+                width: 180, type: "donut", fontFamily: "Plus Jakarta Sans', sans-serif", foreColor: "#adb0bb",
+            }, plotOptions: {
+                pie: {
+                    startAngle: 0, endAngle: 360, donut: {
+                        size: '75%',
+                    },
+                },
+            }, stroke: {
+                show: false,
+            },
+
+            dataLabels: {
+                enabled: false,
+            },
+
+            legend: {
+                show: false,
+            }, colors: ["#5D87FF", "#ecf2ff", "#F9F9FD"],
+
+            responsive: [{
+                breakpoint: 991, options: {
+                    chart: {
+                        width: 150,
+                    },
+                },
+            },], tooltip: {
+                theme: "dark", fillSeriesColor: false,
+            },
+        };
+        var chart = new ApexCharts(document.querySelector("#breakup"), breakup);
+        chart.render();
+
+
+        // Earning
+        var earning = {
+            chart: {
+                id: "sparkline3", type: "area", height: 60, sparkline: {
+                    enabled: true,
+                }, group: "sparklines", fontFamily: "Plus Jakarta Sans', sans-serif", foreColor: "#adb0bb",
+            }, series: [{
+                name: "Earnings", color: "#49BEFF", data: [25, 66, 20, 40, 12, 58, 20],
+            },], stroke: {
+                curve: "smooth", width: 2,
+            }, fill: {
+                colors: ["#f3feff"], type: "solid", opacity: 0.05,
+            },
+
+            markers: {
+                size: 0,
+            }, tooltip: {
+                theme: "dark", fixed: {
+                    enabled: true, position: "right",
+                }, x: {
+                    show: false,
+                },
+            },
+        };
+        new ApexCharts(document.querySelector("#earning"), earning).render();
+    })
+
+    function formatCurrency(value) {
+        var formatter = new Intl.NumberFormat('vi-VN', {
+            style: 'currency',
+            currency: 'VND',
+            minimumFractionDigits: 0,
+        });
+        return formatter.format(value);
+    }
+</script>
+  
+</body>
+</html>

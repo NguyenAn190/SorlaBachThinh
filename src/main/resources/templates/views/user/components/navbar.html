@@ -1,0 +1,70 @@
+<nav class="navbar navbar-expand-xxl bg-white navbar-light sticky-top p-0">
+    <a href="/trang-chu" class="navbar-brand d-flex align-items-center border-end px-4 px-lg-5">
+        <h2 class="m-0 text-primary">BÁCH THỊNH</h2>
+    </a>
+
+
+    <div class="position-relative d-lg-none cart-item">
+        <div th:if="${session.account != null}">
+            <a href="/gio-hang" role="button" class="cart-images text-center w-100 me-4"><i class="bi bi-bag"
+                                                                                            style="font-size: 35px"></i></a>
+            <span class="cart-number text-center" th:text="${session.cartAmount}">2</span>
+        </div>
+
+        <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse"><span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a href="/trang-chu" class="nav-item nav-link fw-bold">Trang Chủ</a>
+            <a href="/gioi-thieu" class="nav-item nav-link fw-bold">Giới Thiệu</a>
+            <a href="/san-pham" class="nav-item nav-link fw-bold">Sản Phẩm</a>
+            <div class="nav-item dropdown">
+                <a href="/hoa-luoi-on-grid" class="nav-link fw-bold dropdown-toggle" data-bs-toggle="dropdown">Lắp
+                    Đặt</a>
+                <div class="dropdown-menu bg-light m-0 rounded-0 bg-white">
+                    <a href="/hoa-luoi-on-grid" class="dropdown-item">Hoà Lưới (On-Grid)</a>
+                    <a href="/hoa-luoi-hybrid" class="dropdown-item">Hoà Lưới Lưu Trữ (Hybrid)</a>
+                </div>
+            </div>
+            <a href="/ban-tin" class="nav-item nav-link fw-bold">Tin Tức</a>
+            <a href="/chinh-sach" class="nav-item nav-link fw-bold">Chính Sách</a>
+            <a href="/lien-he" class="nav-item nav-link fw-bold">Liên Hệ</a>
+            <div th:if="${session.account != null}">
+                <div class="nav-item dropdown">
+                    <a href="#" class="nav-link fw-bold dropdown-toggle" data-bs-toggle="dropdown">
+                        Chào !
+                        <span th:text="${session.account.fullname.substring(session.account.fullname.lastIndexOf(' ')+1)}"></span>
+                        <span class="wave">👋</span>
+                    </a>
+                    <div class="dropdown-menu bg-light m-0 rounded-0 bg-white">
+                        <a href="/thong-tin" class="dropdown-item">Thông tin cá nhân</a>
+                        <a href="/doi-mat-khau" class="dropdown-item">Đổi mật khẩu</a>
+                        <a href="/lich-su-mua-hang" class="dropdown-item">Lịch sử mua hàng</a>
+                        <a href="/dang-xuat" class="dropdown-item">Đăng xuất</a>
+                    </div>
+                </div>
+            </div>
+            <div th:if="${session.account == null}">
+                <a href="/dang-nhap" class="nav-item nav-link fw-bold">Đăng nhập</a>
+            </div>
+            <div th:if="${session.account == null}">
+                <a href="/dang-ky" class="nav-item nav-link fw-bold d-lg-none">ĐĂNG KÝ</a>
+            </div>
+        </div>
+        <div th:if="${session.account == null}">
+            <a href="/dang-ky" class="btn btn-primary rounded-0 py-4 px-lg-5 d-lg-block d-none">ĐĂNG KÝ<i
+                    class="fa fa-arrow-right ms-3"></i></a>
+        </div>
+
+        <div th:if="${session.account != null}">
+            <a href="/gio-hang" class="btn btn-primary rounded-0 py-4 px-lg-5 d-lg-block d-none">
+                <i class="fa-solid fa-cart-plus"></i>
+                Giỏ hàng (<span th:text="${session.cartAmount}">0</span>)
+                <i class="fa fa-arrow-right ms-3"></i>
+            </a>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Solar Bách Thịnh - Trang Chủ</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <div th:replace="~{views/user/lib/link_lib}"></div>
+    <link rel="stylesheet" href="/user/assets/css/product/product.css">
+    <link rel="stylesheet" href="/user/assets/css/product/category-product.css">
+</head>
+
+<style>
+    .swiper {
+        margin-top: 8px;
+        height: 500px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .mswiper{
+        margin-top: 8px;
+        height: 72%;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        background: #fff;
+        height: calc((100% - 30px) / 2) !important;
+
+        /* Center slide text vertically */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #cccccc;
+    }
+</style>
+<body>
+<!-- Spinner Start -->
+<div th:replace="~{views/user/components/spiner}"></div>
+<!-- Spinner End -->
+
+
+<!-- Topbar Start -->
+<div th:replace="~{views/user/components/topbar}"></div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div th:replace="~{views/user/components/navbar}"></div>
+<!-- Navbar End -->
+
+
+<!-- Carousel Start -->
+<div class="container-fluid p-0 pb-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="owl-carousel header-carousel position-relative">
+        <div class="owl-carousel-item position-relative" data-dot="<img src='/user/assets/img/carousel-1.jpg'>">
+            <img class="img-fluid" src="/user/assets/img/carousel-1.jpg" alt="">
+            <div class="owl-carousel-inner">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h1 class="display-2 text-white animated slideInDown">Một Nguồn Năng Lượng Sạch</h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3">Năng lượng mặt trời, Gió, Thuỷ điện,
+                                Nhiệt
+                                điện cũng như các tiến bộ trong
+                                lưu trữ năng lượng cung cấp các giải pháp thay thế xanh hơn.</p>
+                            <a href="/ban-tin" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Đọc
+                                Tiếp...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="owl-carousel-item position-relative" data-dot="<img src='/user/assets/img/carousel-2.jpg'>">
+            <img class="img-fluid" src="/user/assets/img/carousel-2.jpg" alt="">
+            <div class="owl-carousel-inner">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h1 class="display-2 text-white animated slideInDown">Giải Pháp Tái Tạo Năng Lượng Mặt
+                                Trời
+                            </h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3">Chúng tôi hấp thu những tia bức xạ mặt
+                                trời
+                                để tiếp tục tái tạo thành điện năng
+                                và được đưa vào sử dụng được coi là nguồn năng lượng sạch.</p>
+                            <a href="/gioi-thieu" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Đọc
+                                Tiếp...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="owl-carousel-item position-relative" data-dot="<img src='/user/assets/img/carousel-3.jpg'>">
+            <img class="img-fluid" src="/user/assets/img/carousel-3.jpg" alt="">
+            <div class="owl-carousel-inner">
+                <div class="container">
+                    <div class="row justify-content-start">
+                        <div class="col-10 col-lg-8">
+                            <h1 class="display-2 text-white animated slideInDown">Hãy Đến Với Solar Bách Thịnh
+                            </h1>
+                            <p class="fs-5 fw-medium text-white mb-4 pb-3">Một sự phối hợp hoàn hảo giữa kinh nghiệm
+                                toàn cầu và chuyên môn để tiếp tục
+                                tập trung vào tiến bộ công nghệ.</p>
+                            <a href="/san-pham" class="btn btn-primary rounded-pill py-3 px-5 animated slideInLeft">Đọc
+                                Tiếp...</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel End -->
+
+
+<!-- Feature Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="row g-5">
+            <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.1s">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="btn-lg-square bg-primary rounded-circle me-3">
+                        <i class="fa fa-users text-white"></i>
+                    </div>
+                    <h1 class="mb-0" data-toggle="counter-up">3453</h1>
+                </div>
+                <h5 class="mb-3">Khách Hàng</h5>
+                <span>Chúng tôi đã mang lại niềm vui cho 3453 khách hàng hài lòng</span>
+            </div>
+            <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.3s">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="btn-lg-square bg-primary rounded-circle me-3">
+                        <i class="fa fa-check text-white"></i>
+                    </div>
+                    <h1 class="mb-0" data-toggle="counter-up">4234</h1>
+                </div>
+                <h5 class="mb-3">Dự Án</h5>
+                <span>Đã hoàn thành 4234 dự án với chất lượng và hiệu suất cao</span>
+            </div>
+            <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.5s">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="btn-lg-square bg-primary rounded-circle me-3">
+                        <i class="fa fa-award text-white"></i>
+                    </div>
+                    <h1 class="mb-0" data-toggle="counter-up">3123</h1>
+                </div>
+                <h5 class="mb-3">Giải Thưởng</h5>
+                <span>Đạt được 3123 giải thưởng, điều này là minh chứng cho sự xuất sắc và cam kết của chúng
+                        tôi</span>
+            </div>
+            <div class="col-md-6 col-lg-3 wow fadeIn" data-wow-delay="0.7s">
+                <div class="d-flex align-items-center mb-4">
+                    <div class="btn-lg-square bg-primary rounded-circle me-3">
+                        <i class="fa fa-users-cog text-white"></i>
+                    </div>
+                    <h1 class="mb-0" data-toggle="counter-up">1831</h1>
+                </div>
+                <h5 class="mb-3">Đội Ngũ Nhân Viên</h5>
+                <span>Đội ngũ nhân viên chuyên nghiệp của chúng tôi gồm 1831 người, sẵn sàng phục vụ bạn với sự am
+                        hiểu và tận tâm</span>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Feature Start -->
+
+
+<!-- About Start -->
+<div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+    <div class="container about px-lg-0">
+        <div class="row g-0 mx-lg-0">
+            <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <img class="position-absolute img-fluid w-100 h-100" src="/user/assets/img/about.jpg"
+                         style="object-fit: cover;" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
+                <div class="p-lg-5 pe-lg-0">
+                    <h6 class="text-primary">Về Chúng Tôi</h6>
+                    <h1 class="mb-4">Với hơn 25 năm tiên phong trong lĩnh vực năng lượng mặt trời và năng lượng tái
+                        tạo</h1>
+                    <p>Chúng tôi cam kết cung cấp các sản phẩm và dịch vụ chất lượng tốt nhất, với giá cạnh tranh và
+                        dịch vụ khách hàng tận tâm. Mỗi sản phẩm được kiểm tra và sàng lọc kỹ càng trước khi đến tay
+                        khách hàng.</p>
+                    <p><i class="fa fa-check-circle text-primary me-3"></i>Chúng tôi tuân thủ nghiêm ngặt các quy
+                        định
+                        bảo hành của nhà sản xuất.</p>
+                    <p><i class="fa fa-check-circle text-primary me-3"></i>Hỗ trợ đổi trả hàng trong vòng 7 ngày.
+                    </p>
+                    <p><i class="fa fa-check-circle text-primary me-3"></i>Tư vấn và hướng dẫn sử dụng cụ thể cho
+                        từng
+                        sản phẩm.</p>
+                    <a href="/gioi-thieu" class="btn btn-primary rounded-pill py-3 px-5 mt-3">Xem Nhiều Hơn...</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- About End -->
+
+
+<!-- Service Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">Dịch Vụ Của Chúng Tôi</h6>
+            <h1 class="mb-4">Nguồn Năng Lượng Sạch</h1>
+        </div>
+
+        <!--Start Tấm pin-->
+        <div class="product_template mt-4 mb-4 wow fadeInUp" data-wow-delay="fade-up">
+            <div class="title_cart d-flex align-items-center mb-3">
+                <div class="title-card-box d-flex align-items-center h-100">
+                    <div class="category_product">
+                        <span>Đèn mặt trời</span>
+                    </div>
+                </div>
+                <div class="see_more">
+                    <a href="/san-pham">Xem thêm...</a>
+                </div>
+            </div>
+            <div class="slide_product">
+                <!-- Swiper -->
+                <div class="swiper mswiper" id="product_pin">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide" th:each="item : ${products}">
+                            <div class="item">
+                                <div class="item-product d-flex align-items-center">
+                                    <div class="img">
+                                        <img th:src="@{/upload/{img}(img = ${item.productImagesByProductId[0].imagePath})}"
+                                             class="img-fluid" style="width: 200px" alt="...">
+                                    </div>
+                                    <div class="card-body-product">
+                                        <p class="name-product" th:text="${item.productName}"></p>
+                                        <div class="content-product mb-3">
+                                            <span>Công suất: <b th:text="${item.power}"></b></span>
+                                            <span>Hãng: <b th:text="${item.brandsByBrandId.brandName}"></b></span>
+                                        </div>
+                                        <div class="btn-add-cart">
+                                            <a th:href="@{'/san-pham/san-pham-chi-tiet?ma-san-pham=' + ${item.productId}}"
+                                               role="button" type="submit" class="btn btn-primary w-100">
+                                                Mua hàng</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
+        <!--End Tấm pin-->
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="/user/assets/img/img-600x400-1.jpg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-solar-panel fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Năng Lượng Mặt Trời</h4>
+                        <p>Chúng tôi tạo ra những tấm pin mặt trời tối ưu với công nghệ tiên tiến, biến ánh nắng
+                            mặt trời thành nguồn năng lượng vô tận cho gia đình và doanh nghiệp.</p>
+                        <a class="small fw-medium" href="">Đọc thêm<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="/user/assets/img/img-600x400-2.jpg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-wind fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Năng Lượng Gió</h4>
+                        <p>Chúng tôi phát triển các cánh quạt gió hiệu suất cao để tận dụng sức gió mạnh mẽ, mang
+                            lại
+                            năng lượng sạch và bền vững cho xã hội cho cộng đồng.</p>
+                        <a class="small fw-medium" href="">Đọc thêm<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="/user/assets/img/img-600x400-3.jpg" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-lightbulb fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Nhà Máy Thuỷ Điện</h4>
+                        <p>Chúng tôi xây dựng các nhà máy thủy điện tiên tiến, sử dụng nguồn nước để sản xuất điện
+                            năng
+                            bền vững, góp phần giảm thiểu tác động đến môi trường.</p>
+                        <a class="small fw-medium" href="">Đọc thêm<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Service End -->
+
+
+<!-- Feature Start -->
+<div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+    <div class="container feature px-lg-0">
+        <div class="row g-0 mx-lg-0">
+            <div class="col-lg-6 feature-text py-5 wow fadeIn" data-wow-delay="0.1s">
+                <div class="p-lg-5 ps-lg-0">
+                    <h4 class="text-primary">Tại sao chọn chúng tôi!</h4>
+                    <h1 class="mb-4">Hệ thống Năng lượng Mặt trời Toàn diện cho Doanh nghiệp và Gia đình</h1>
+                    <h6>Solar Bách Thịnh cam kết</h6>
+                    <p>Cung cấp các sản phẩm – dịch vụ chất lượng tốt, giá cạnh tranh, dễ mua với dịch vụ chu đáo và
+                        thân thiện.</p>
+                    <div class="row g-4">
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="btn-lg-square bg-primary rounded-circle">
+                                    <i class="fa fa-check text-white"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-0">Chất lượng</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="btn-lg-square bg-primary rounded-circle">
+                                    <i class="fa fa-user-check text-white"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-0">Chuyên nghiệp</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="btn-lg-square bg-primary rounded-circle">
+                                    <i class="fa fa-drafting-compass text-white"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-0">Nhiệt Tình</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="d-flex align-items-center">
+                                <div class="btn-lg-square bg-primary rounded-circle">
+                                    <i class="fa fa-headphones text-white"></i>
+                                </div>
+                                <div class="ms-4">
+                                    <p class="mb-0">Tận tâm</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 pe-lg-0 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <img class="position-absolute img-fluid w-100 h-100" src="/user/assets/img/feature2.jpg"
+                         style="object-fit: cover;" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Feature End -->
+
+
+<!-- start sản phẩm nổi bật -->
+`<section class="py-5 wow fadeInUp" data-wow-delay="fade-up" >
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeIn" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">Tất Cả Sản Phẩm Nổi Bật Của Chúng Tôi</h6>
+            <h1 class="mb-4">SẢN PHẨM NỔI BẬT</h1>
+        </div>
+
+        <!--Start nổi bật-->
+        <div class="container wow fadeInUp" data-wow-delay="fade-up">
+            <div class="row">
+                <!-- Category Products -->
+                <div class="col-12 col-md-12 col-lg-4">
+                    <div class="box">
+                        <div class="row">
+                            <div th:each="category : ${categories}" class="col-6 col-md-6 col-lg-6 p-4 product-box">
+                                <a href="javascript:void(0)" th:id="${'product-' + category.categoryId}">
+                                    <h5 class="product-title fs-6" th:text="${category.categoryName}">Tấm pin</h5>
+                                    <img th:src="@{/upload/{img}(img = ${category.categoryImage})}" alt=""
+                                         class="product-image">
+                                    <div class="position-absolute product-arrow">
+                                        <i class="fa-solid fa-angle-right fa-beat"></i>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Product Slider -->
+                <div class="col-12 col-md-12 col-lg-8">
+                    <div class="swiper mySwiper" id="product-slider">
+                        <div class="swiper-wrapper">
+                            <div th:each="item : ${products}" class="swiper-slide">
+                                <a th:href="@{'/san-pham/san-pham-chi-tiet?ma-san-pham=' + ${item.productId}}">
+                                    <div class="d-flex align-items-center product-hot">
+                                        <img th:src="@{/upload/{img}(img = ${item.productImagesByProductId[0].imagePath})}"
+                                             width="30%" alt="">
+                                        <div class="content-item text-start text-dark">
+                                            <div style="font-size: 14px"
+                                                 th:text="${item.brandsByBrandId.brandName}"></div>
+                                            <div style="padding-right: 10px; font-size: 16px; text-transform: uppercase"
+                                                 th:text="${item.productName}"></div>
+                                            <div style="font-size: 14px">Công suất: <span style="font-weight: bold"
+                                                                                          th:text="${item.power}"></span>
+                                            </div>
+                                            <div style="font-size: 14px">Giá:
+                                                <span style="font-weight: bold"
+                                                      th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`
+
+        <!--End nổi bật-->
+    </div>
+</section>
+<!-- end sản phẩm nổi bật -->
+
+
+<!-- Team Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">Thành Viên Của Đội</h6>
+            <h1 class="mb-4">Các thành viên giàu kinh nghiệm</h1>
+        </div>
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                <div class="team-item rounded overflow-hidden">
+                    <div class="d-flex">
+                        <img class="img-fluid w-75" src="/user/assets/img/team-1.jpg" alt="">
+                        <div class="team-social w-25">
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i
+                                    class="fab fa-twitter"></i></a>
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i
+                                    class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h5>Anh Hiếu</h5>
+                        <span>Nhân viên kỹ thuật</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="team-item rounded overflow-hidden">
+                    <div class="d-flex">
+                        <img class="img-fluid w-75" src="/user/assets/img/team-2.jpg" alt="">
+                        <div class="team-social w-25">
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i
+                                    class="fab fa-twitter"></i></a>
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i
+                                    class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h5>Anh Thành</h5>
+                        <span>Nhân viên kỹ thuật</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="team-item rounded overflow-hidden">
+                    <div class="d-flex">
+                        <img class="img-fluid w-75" src="/user/assets/img/team-3.jpg" alt="">
+                        <div class="team-social w-25">
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i
+                                    class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i
+                                    class="fab fa-twitter"></i></a>
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i
+                                    class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h5>Anh Phương</h5>
+                        <span>Nhân viên kỹ thuật</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Team End -->
+
+
+<!-- Testimonial Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h1 class="text-primary">Phản hồi của người dùng</h1>
+            <h4 class="mb-4">Khách hàng của chúng tôi nói gì?</h4>
+        </div>
+        <div class="owl-carousel testimonial-carousel wow fadeInUp" data-wow-delay="0.1s">
+            <div class="testimonial-item text-center">
+                <div class="testimonial-img position-relative">
+                    <img class="img-fluid rounded-circle mx-auto mb-5"
+                         src="/user/assets/img/news-img/feedback-user1.jpg" alt="">
+                    <div class="btn-square bg-primary rounded-circle">
+                        <i class="fa fa-quote-left text-white"></i>
+                    </div>
+                </div>
+                <div class="testimonial-text text-center rounded p-4">
+                    <p>Chúng tôi rất ấn tượng với chuyên nghiệp và tận tâm của đội ngũ kỹ thuật viên của Công ty
+                        Bách Thịnh trong việc lắp đặt hệ thống điện mặt trời tại nhà.</p>
+                    <h5 class="mb-1">Mai Quỳnh Anh</h5>
+                    <span class="fst-italic">Chủ gia đình</span>
+                </div>
+            </div>
+            <div class="testimonial-item text-center">
+                <div class="testimonial-img position-relative">
+                    <img class="img-fluid rounded-circle mx-auto mb-5"
+                         src="/user/assets/img/news-img/feedback-user2.jpg" alt="">
+                    <div class="btn-square bg-primary rounded-circle">
+                        <i class="fa fa-quote-left text-white"></i>
+                    </div>
+                </div>
+                <div class="testimonial-text text-center rounded p-4">
+                    <p>Dịch vụ điện mặt trời của Công ty Bách Thịnh thật sự xuất sắc, đã giúp tôi tiết kiệm đáng kể
+                        trong hóa đơn điện hàng tháng và giảm tác động đến môi trường.</p>
+                    <h5 class="mb-1">Trần Hoàng Phương</h5>
+                    <span class="fst-italic">CEO Công ty TNHH Mailati</span>
+                </div>
+            </div>
+            <div class="testimonial-item text-center">
+                <div class="testimonial-img position-relative">
+                    <img class="img-fluid rounded-circle mx-auto mb-5"
+                         src="/user/assets/img/news-img/feedback-user3.jpg" alt="">
+                    <div class="btn-square bg-primary rounded-circle">
+                        <i class="fa fa-quote-left text-white"></i>
+                    </div>
+                </div>
+                <div class="testimonial-text text-center rounded p-4">
+                    <p>Hệ thống điện mặt trời của chúng tôi hoạt động ổn định và đem lại
+                        hiệu suất cao, là một đầu tư đáng giá cho tương lai.</p>
+                    <h5 class="mb-1">Phạm Hoàng Quân</h5>
+                    <span class="fst-italic">Hiệu trưởng Đại học Hồng Hà</span>
+                </div>
+            </div>
+            <div class="testimonial-item text-center">
+                <div class="testimonial-img position-relative">
+                    <img class="img-fluid rounded-circle mx-auto mb-5"
+                         src="/user/assets/img/news-img/feedback-user4.jpg" alt="">
+                    <div class="btn-square bg-primary rounded-circle">
+                        <i class="fa fa-quote-left text-white"></i>
+                    </div>
+                </div>
+                <div class="testimonial-text text-center rounded p-4">
+                    <p>Công ty Bách Thịnh thực sự là một đối tác đáng tin cậy cho mọi người quyết định
+                        sử dụng năng lượng điện mặt trời, với sự cam kết về chất lượng và hiệu suất.</p>
+                    <h5 class="mb-1">Trịnh Thái Quang</h5>
+                    <span class="fst-italic">Kiến trúc sư</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+
+<!-- Footer Start -->
+<div th:replace="~{views/user/components/footer}"></div>
+<!-- Footer End -->
+
+<!-- JavaScript main-->
+<script src="/user/assets/js/product.js"></script>
+
+<!-- ajax daata -->
+<script src="/user/assets/js/data/ajax-index-product.js"></script>
+
+<!-- JavaScript Libraries -->
+<div th:replace="~{views/user/lib/script_lib}"></div>
+
+</body>
+</html>

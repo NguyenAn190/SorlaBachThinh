@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Solar Bách Thịnh - Đăng Nhập</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <div th:replace="~{views/user/lib/link_lib}"></div>
+</head>
+
+<body>
+<!-- Spinner Start -->
+<div th:replace="~{views/user/components/spiner}"></div>
+<!-- Spinner End -->
+
+
+<!-- Topbar Start -->
+<div th:replace="~{views/user/components/topbar}"></div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div th:replace="~{views/user/components/navbar}"></div>
+<!-- Navbar End -->
+
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5">
+    <div class="container py-5">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Đăng Nhập</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="text-white" href="/trang-chu">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="/dang-nhap">Đăng Nhập</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+
+<!-- Login Form Start -->
+<div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+    <div class="container feature px-lg-0">
+        <div class="row g-0 mx-lg-0">
+            <div class="col-lg-8 contact-text py-5 wow fadeIn" data-wow-delay="0.5s">
+                <div class="p-lg-5 ps-lg-0">
+                    <h6 class="text-primary">Solar Bách Thịnh</h6>
+                    <h1 class="mb-4">Xác nhận OTP</h1>
+                    <div class="step_form" style="color: grey;">
+                        <p>
+                            <Strong class="text-info">1</Strong>Hệ thống của đã gửi cho bạn một mã OTP vào
+                            email của bạn. Vui lòng kiểm tra Email<br> <Strong><Strong class="text-info">2</Strong>
+                            .Lấy mã OTP đã nhận được ở email của bạn.</Strong> <br> <Strong
+                                class="text-info">3</Strong> .Nhập mã OTP vào ô trống.
+                        </p>
+                    </div>
+                    <!-- from login -->
+                    <div class="login border-end">
+                        <div class="login__container">
+                            <form id="form-OTP" th:action="@{/quen-mat-khau/xac-nhan-otp}" method="post">
+                                <label for="otp">Nhập OTP</label>
+                                <input type="tel" id="otp" name="otp" maxlength="6" class="input-sigin-email"/>
+                                <div id="otp-error" class="text-danger"></div>
+                                <button type="submit" class="signInButton mt-2">Tiếp Theo</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 pe-lg-0 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <div class=" d-flex justify-content-center flex-column h-100">
+                        <span>Bạn Chưa Có Tài Khoản ?</span>
+                        <a href="/dang-ky" class="">Đăng Ký Ngay</a>
+                        <div class="d-grid gap-2 d-md-block mt-3">
+                            <span>Bạn Quên Mật Khẩu?</span>
+                            <a href="/quen-mat-khau" class="">Tìm Lại Mật Khẩu</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row gx-0">
+        <div class="col-lg-8 border-right"></div>
+    </div>
+</div>
+<!-- Login Form End -->
+
+
+<!-- Footer Start -->
+<div th:replace="~{views/user/components/footer}"></div>
+<!-- Footer End -->
+
+<!-- JavaScript Libraries -->
+<div th:replace="~{views/user/lib/script_lib}"></div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("form-OTP");
+        const otpInput = document.getElementById("otp");
+        const otpError = document.getElementById("otp-error");
+
+        form.addEventListener("submit", function (event) {
+            if (otpInput.value.trim() === "") {
+                // Ngăn chặn form gửi đi
+                event.preventDefault();
+
+                // Hiển thị thông báo đỏ
+                otpError.textContent = "Mời người dùng nhập OTP đã được gửi.";
+
+                // Thay đổi màu khung input thành đỏ
+                otpInput.style.borderColor = "red";
+            } else {
+                // Nếu có giá trị trong input, xóa thông báo và khôi phục màu khung input
+                otpError.textContent = "";
+                otpInput.style.borderColor = "";
+            }
+        });
+    });
+</script>
+</body>
+
+</html>

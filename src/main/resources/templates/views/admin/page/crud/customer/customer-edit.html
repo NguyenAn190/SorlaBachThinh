@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solar Bách Thịnh - Sửa Khách Hàng</title>
+    <div th:replace="~{views/admin/lib/link_lib}"></div>
+</head>
+<body>
+
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+
+    <!-- Sidebar Start -->
+    <div th:replace="~{views/admin/components/aside}"></div>
+    <!--  Sidebar End -->
+
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <div th:replace="~{views/admin/components/header}"></div>
+        <!--  Header End -->
+
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4 mt-2">Cập nhật thông tin khách hàng</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <form onsubmit="return validateForm()" id="edit-form" method="post"
+                                  th:action="@{/admin/sua-khach-hang/{id}(id = ${customers.customerId})}"
+                                  th:object="${customerDTO}">
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="customerId-edit-customer"
+                                           th:value="${customerDTO.customerId}" readonly>
+                                    <label for="customerId-edit-customer">Mã khách hàng</label>
+                                    <span class="text-danger" id="invalid-customerId"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="accountId-select" th:field="*{accountId}"
+                                            aria-label="Floating label select example">
+                                        <option th:each="account : ${listAccount}"
+                                                th:text="${account.accountId} + ' - ' + ${account.email} + ' - ' + ${account.fullname}"
+                                                th:value="${account.accountId}"></option>
+                                    </select>
+                                    <label for="accountId-select">Mã tài khoản</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('accountId')}"
+                                          th:errors="*{accountId}"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" id="birth-edit-customer" name="birthDay"
+                                           th:value="${#dates.format(customerDTO.birthDay, 'yyyy-MM-dd')}">
+                                    <label for="birth-edit-customer">Sinh Nhật</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('birthDay')}"
+                                          th:errors="*{birthDay}"></span>
+                                    <span class="text-danger" id="invalid-birth-edit-customer"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="city" th:field="*{province}"
+                                            aria-label="Floating label select example">
+                                        <option th:value="${customerDTO.province}" th:text="${customerDTO.province}"
+                                                selected>Chọn Tỉnh Thành
+                                        </option>
+                                        <!-- Các tùy chọn cho Tỉnh Thành -->
+                                    </select>
+                                    <label for="city">Tỉnh Thành</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('province')}"
+                                          th:errors="*{province}"></span>
+                                    <span class="text-danger" id="invalid-city"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="district" th:field="*{district}"
+                                            aria-label="Floating label select example">
+                                        <option id="districtOption" th:value="${customerDTO.district}"
+                                                th:text="${customerDTO.district}"
+                                                selected>Chọn Quận/Huyện
+                                        </option>
+                                        <!-- Các tùy chọn cho Quận/Huyện -->
+                                    </select>
+                                    <label for="district">Quận/Huyện</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('district')}"
+                                          th:errors="*{district}"></span>
+                                    <span class="text-danger" id="invalid-district"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="ward" th:field="*{village}"
+                                            aria-label="Floating label select example">
+                                        <option th:value="${customerDTO.village}" th:text="${customerDTO.village}"
+                                                selected>Chọn Phường/Xã
+                                        </option>
+                                        <!-- Các tùy chọn cho Phường/Xã -->
+                                    </select>
+                                    <label for="ward">Phường/Xã</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('village')}"
+                                          th:errors="*{village}"></span>
+                                    <span class="text-danger" id="invalid-ward"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="address-edit-customer"
+                                           th:field="*{address}">
+                                    <label for="address-edit-customer">Địa chỉ cụ thể</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('address')}"
+                                          th:errors="*{address}"></span>
+                                    <span class="text-danger" id="invalid-address-edit-customer"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="gender-edit-customer" th:field="*{gender}"
+                                            aria-label="Floating label select example">
+                                        <option value="" selected>Chọn Giới Tính</option>
+                                        <option value="true">Nam</option>
+                                        <option value="false">Nữ</option>
+                                    </select>
+                                    <label for="gender-edit-customer">Giới Tính</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('gender')}"
+                                          th:errors="*{gender}"></span>
+                                </div>
+
+                                <div class="row d-flex flex-column flex-md-row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="d-grid gap-2 d-md-block">
+                                            <button class="btn btn-warning" type="submit" id="submitted-button">
+                                                Cập nhật
+                                            </button>
+                                            <button class="btn btn-success" type="reset">Làm mới</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <a href="/admin/khach-hang" class="btn btn-danger" role="button">Trở về</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{views/admin/lib/script_lib}"></div>
+<script src="/admin/assets/js/api_address.js"></script>
+<script src="/admin/assets/js/validation/validation-customer.js"></script>
+
+<script>
+    function validateForm() {
+        Swal.fire({
+            title: 'Cảnh báo ?',
+            text: "Bạn có chắc chắn muốn cập nhật không ?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Đồng ý !'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('edit-form').submit();
+            }
+        });
+
+        return false;
+    }
+</script>
+</body>
+</html>

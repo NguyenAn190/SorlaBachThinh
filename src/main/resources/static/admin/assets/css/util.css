@@ -1,0 +1,25 @@
+/* Ẩn thanh cuộn ngang và dọc */
+body::-webkit-scrollbar {
+    display: none;
+}
+
+body::-webkit-scrollbar-track {
+    background-color: #F5F5F5;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #000000;
+}
+
+/* Cho Firefox */
+body {
+    scrollbar-width: thin;
+    scrollbar-color: #000000 #F5F5F5;
+}
+
+.hidden-text-table {
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

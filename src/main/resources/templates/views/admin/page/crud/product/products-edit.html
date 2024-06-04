@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solar Bách Thịnh - Thêm Sản Phẩm</title>
+
+    <div th:replace="~{views/admin/lib/link_lib}"></div>
+</head>
+<body>
+
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+
+    <!-- Sidebar Start -->
+    <div th:replace="~{views/admin/components/aside}"></div>
+    <!--  Sidebar End -->
+
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <div th:replace="~{views/admin/components/header}"></div>
+        <!--  Header End -->
+
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body ">
+                    <h5 class="card-title fw-semi-bold mb-4 mt-2">Cập nhật sản phẩm</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="post" id="edit-form" onsubmit="return confirmForm()"
+                                  th:action="@{/admin/sua-san-pham/edit/{id}(id = ${products.get().productId})}"
+                                  th:object="${productsDTO}">
+
+                                <div class="form">
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="productIdValue"
+                                               th:value="${products.get().productId}" readonly>
+                                        <label for="productIdValue">Mã sản phẩm</label>
+                                    </div>
+
+                                    <input type="hidden" name="date" th:value="${products.get().dateCreated}">
+
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" th:value="${products.get().productName}"
+                                               id="productName" name="productName">
+                                        <label for="productName">Tên sản phẩm</label>
+                                        <span class="text-danger invalid-form"
+                                              th:if="${#fields.hasErrors('productName')}"
+                                              th:errors="*{productName}"></span>
+                                        <span class="text-danger" id="invalid-product-name"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" th:value="${products.get().power}"
+                                               id="power" name="power">
+                                        <label for="power">Công suất</label>
+                                        <span class="text-danger invalid-form" th:if="${#fields.hasErrors('power')}"
+                                              th:errors="*{power}"></span>
+                                        <span class="text-danger" id="invalid-power"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="number" class="form-control" th:value="${products.get().amount}"
+                                               id="amount" name="amount">
+                                        <label for="amount">Số lượng sản phẩm</label>
+                                        <span class="text-danger invalid-form" th:if="${#fields.hasErrors('amount')}"
+                                              th:errors="*{amount}"></span>
+                                        <span class="text-danger" id="invalid-amount"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" oninput="formatPrice(this)"
+                                               id="priceInput" th:value="${priceFormat}" name="price">
+                                        <label for="priceInput">Giá sản phẩm</label>
+                                        <span class="text-danger invalid-form" th:if="${#fields.hasErrors('price')}"
+                                              th:errors="*{price}"></span>
+                                        <span class="text-danger" id="invalid-price"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" th:value="${products.get().warranty}"
+                                               id="warranty" name="warranty">
+                                        <label for="warranty">Thời gian bảo hành</label>
+                                        <span class="text-danger invalid-form" th:if="${#fields.hasErrors('warranty')}"
+                                              th:errors="*{warranty}"></span>
+                                        <span class="text-danger" id="invalid-warranty"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <input type="tel" class="form-control" th:value="${saleOffFormat}"
+                                               id="saleOff" name="saleOff" oninput="formatPrice(this)">
+                                        <label for="saleOff">Giảm giá</label>
+                                        <span class="text-danger invalid-form" th:if="${#fields.hasErrors('saleOff')}"
+                                              th:errors="*{saleOff}"></span>
+                                        <span class="text-danger" id="invalid-saleOff"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+
+                                        <select class="form-select" name="brandId">
+                                            <option th:each="option : ${brandsOptions}"
+                                                    th:value="${option.brandId}"
+                                                    th:text="${option.brandName}"
+                                                    th:selected="${option.brandId == products.get().brandId}">
+
+                                            </option>
+                                        </select>
+                                        <label>Thương hiệu</label>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" name="productTypeId">
+                                            <option th:each="option : ${productTypeOptions}"
+                                                    th:value="${option.productTypeId}"
+                                                    th:text="${option.categorysByCategoryId.categoryName + ' - ' + option.productTypeName}"
+                                                    th:selected="${option.productTypeId == products.get().productTypeId}">
+                                            </option>
+                                        </select>
+                                        <label>Thể loại</label>
+                                        <span class="text-danger invalid-form"
+                                              th:if="${#fields.hasErrors('productTypeId')}"
+                                              th:errors="*{productTypeId}"></span>
+                                    </div>
+
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" name="isStatusDelete">
+                                            <option th:each="option : ${isStatusDelete}"
+                                                    th:value="${option}"
+                                                    th:text="${option}"
+                                                    th:selected="${option == products.get().statusDelete}">
+                                            </option>
+                                        </select>
+                                        <label>Trạng thái</label>
+                                        <span class="text-danger invalid-form"
+                                              th:if="${#fields.hasErrors('productTypeId')}"
+                                              th:errors="*{productTypeId}"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" id="descriptions" name="descriptions"
+                                              placeholder="Nhập ghi chú ở đây"
+                                              th:text="${products.get().descriptions}" style="height: 200px">
+                                    </textarea>
+                                    <label for="descriptions">Ghi chú</label>
+                                </div>
+
+                                <div class="row d-flex flex-column flex-md-row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="d-grid gap-2 d-md-block">
+                                            <button class="btn btn-success" id="submitted-button" type="submit">
+                                                Cập nhật
+                                            </button>
+                                            <button class="btn btn-primary" type="reset">Làm mới</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <a href="/admin/san-pham" class="btn btn-danger" role="button">Trở
+                                                về</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{views/admin/lib/script_lib}"></div>
+<script src="/admin/assets/js/format-price.js"></script>
+
+<script src="/admin/assets/js/validation/validation-form-product.js"></script>
+
+<script>
+    function confirmForm() {
+        Swal.fire({
+            title: 'Cảnh báo ?',
+            text: "Bạn có chắc chắn muốn cập nhật không ?",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Đồng ý !'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('edit-form').submit();
+            }
+        });
+
+        return false;
+    }
+</script>
+</body>
+</html>

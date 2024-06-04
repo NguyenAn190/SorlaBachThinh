@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solar Bách Thịnh - Thêm Tài Khoản</title>
+    <div th:replace="~{views/admin/lib/link_lib}"></div>
+</head>
+<body>
+
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+
+    <!-- Sidebar Start -->
+    <div th:replace="~{views/admin/components/aside}"></div>
+    <!--  Sidebar End -->
+
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <div th:replace="~{views/admin/components/header}"></div>
+        <!--  Header End -->
+
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4 mt-2">Thêm thông tin tài khoản</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <form th:action="@{/admin/them-tai-khoan}" th:object="${accountDTO}"
+                                  method="post">
+
+                                <input type="hidden" class="form-control"
+                                       id="id-edit-account" th:field="*{accountId}">
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control"
+                                           id="email-edit-account" th:field="*{email}"
+                                           placeholder="name@gmail.com">
+                                    <label for="email-edit-account">Địa chỉ email</label>
+                                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                       class="text-danger mt-1"></p>
+                                    <span class="text-danger" id="invalid-email"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control"
+                                           id="fullname-edit-account" th:field="*{fullname}"
+                                           placeholder="Họ và tên">
+                                    <label for="fullname-edit-account">Họ và tên</label>
+                                    <p th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"
+                                       class="text-danger mt-1"></p>
+                                    <span class="text-danger" id="invalid-full-name"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control"
+                                           id="phone-edit-account" th:field="*{phoneNumber}" maxlength="10"
+                                           placeholder="Số điện thoại">
+                                    <label for="phone-edit-account">Số điện thoại</label>
+                                    <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
+                                       class="text-danger mt-1"></p>
+                                    <span class="text-danger" id="invalid-phone"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="edit-account-type"
+                                            aria-label="Floating label select example" th:field="*{role}">
+                                        <option selected disabled hidden value="">Vui lòng chọn một trường</option>
+                                        <option value="ADMIN">ADMIN</option>
+                                        <option value="USER">USER</option>
+                                        <option value="STAFF">STAFF</option>
+                                    </select>
+                                    <label for="edit-account-type">Hoạt động</label>
+                                    <span class="text-danger" id="invalid-active"></span>
+                                </div>
+
+                                <div class="row d-flex flex-column flex-md-row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="d-grid gap-2 d-md-block">
+                                            <button class="btn btn-success" type="submit" id="submitted-button">
+                                                Thêm mới
+                                            </button>
+                                            <button class="btn btn-info" type="reset">Làm mới</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <a href="/admin/tai-khoan" class="btn btn-danger" role="button">Trở
+                                                về</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{views/admin/lib/script_lib}"></div>
+<!--alert-->
+<div th:replace="~{views/alert/center_failed}"></div>
+<script src="/admin/assets/js/validation/validation-account.js"></script>
+
+</body>
+</html>

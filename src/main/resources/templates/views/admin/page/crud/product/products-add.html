@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solar Bách Thịnh - Thêm Sản Phẩm</title>
+
+    <div th:replace="~{views/admin/lib/link_lib}"></div>
+</head>
+<body>
+
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+
+    <!-- Sidebar Start -->
+    <div th:replace="~{views/admin/components/aside}"></div>
+    <!--  Sidebar End -->
+
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <div th:replace="~{views/admin/components/header}"></div>
+        <!--  Header End -->
+
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body ">
+                    <h5 class="card-title fw-semi-bold mb-4 mt-2">Thêm sản phẩm</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <form method="post" th:action="@{/admin/them-san-pham/save}" th:object="${productsDTO}"
+                                  enctype="multipart/form-data">
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="productIdValue"
+                                           th:value="${productIdValue}" readonly>
+                                    <label for="productIdValue">Mã sản phẩm</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="productName" th:field="*{productName}">
+                                    <label for="productName">Tên sản phẩm</label>
+                                    <span class="text-danger" th:if="${#fields.hasErrors('productName')}"
+                                          th:errors="*{productName}"></span>
+                                    <span class="text-danger" id="invalid-product-name"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="power" th:field="*{power}">
+                                    <label for="power">Công suất</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('power')}"
+                                          th:errors="*{power}"></span>
+                                    <span class="text-danger" id="invalid-power"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="number" class="form-control" id="amount" th:field="*{amount}">
+                                    <label for="amount">Số lượng sản phẩm</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('amount')}"
+                                          th:errors="*{amount}"></span>
+                                    <span class="text-danger" id="invalid-amount"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="priceInput" oninput="formatPrice(this)"
+                                           name="price">
+                                    <label for="priceInput">Giá sản phẩm</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('price')}"
+                                          th:errors="*{price}"></span>
+                                    <span class="text-danger" id="invalid-price"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="warranty" name="warranty"
+                                           th:field="*{warranty}">
+                                    <label for="warranty">Thời gian bảo hành</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('warranty')}"
+                                          th:errors="*{warranty}"></span>
+                                    <span class="text-danger" id="invalid-warranty"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="saleOff" oninput="formatPrice(this)"
+                                           name="saleOff" th:field="*{saleOff}">
+                                    <label for="saleOff">Giảm giá</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('saleOff')}"
+                                          th:errors="*{saleOff}"></span>
+                                    <span class="text-danger" id="invalid-saleOff"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" name="brandId">
+                                        <option th:each="option : ${brandsOptions}"
+                                                th:value="${option.brandId}"
+                                                th:text="${option.brandName}">
+                                        </option>
+                                    </select>
+                                    <label>Thương hiệu</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" name="productTypeId">
+                                        <option th:each="option : ${productTypeOptions}"
+                                                th:value="${option.productTypeId}"
+                                                th:text="${option.categorysByCategoryId.categoryName + ' - ' + option.productTypeName}">
+                                        </option>
+                                    </select>
+                                    <label>Thể loại</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('productTypeId')}"
+                                          th:errors="*{productTypeId}"></span>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="isStatusDelete" name="isStatusDelete"
+                                           value="Đang bán" readonly>
+                                    <label for="isStatusDelete">Trạng thái</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <textarea class="form-control" id="descriptions" name="descriptions"
+                                              placeholder="Nhập ghi chú ở đây" style="height: 200px"></textarea>
+                                    <label for="descriptions">Ghi chú</label>
+                                </div>
+
+                                <div class="row mb-3">
+                                    <div class="col-lg-6">
+                                        <label class="drop-container">
+                                            <input type="file" accept=".jpg, .jpeg, .png" id="file01" name="file01"
+                                                   onchange="previewImage(event, 'imagePreview1', 'drop-title1', 'dropImageProduct1')">
+                                            <div class="file-icon"></div>
+                                            <div class="drop-title" id="drop-title1">Nhấn để tải ảnh lên...</div>
+                                            <div class="image-show">
+                                                <img class="image-preview" id="imagePreview1" src="#"
+                                                     alt="Image Preview">
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="drop-container">
+                                            <input type="file" accept=".jpg, .jpeg, .png" id="file02" name="file02"
+                                                   onchange="previewImage(event, 'imagePreview2', 'drop-title2', 'dropImageProduct2')">
+                                            <div class="file-icon"></div>
+                                            <div class="drop-title" id="drop-title2">Nhấn để tải ảnh lên...</div>
+                                            <div class="image-show">
+                                                <img class="image-preview" id="imagePreview2" src="#"
+                                                     alt="Image Preview">
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <!-- Repeat for other file inputs -->
+                                    <div class="col-lg-6">
+                                        <label class="drop-container">
+                                            <input type="file" accept=".jpg, .jpeg, .png" id="file03" name="file03"
+                                                   onchange="previewImage(event, 'imagePreview3', 'drop-title3', 'dropImageProduct3')">
+                                            <div class="file-icon"></div>
+                                            <div class="drop-title" id="drop-title3">Nhấn để tải ảnh lên...</div>
+                                            <div class="image-show">
+                                                <img class="image-preview" id="imagePreview3" src="#"
+                                                     alt="Image Preview">
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <label class="drop-container">
+                                            <input type="file" accept=".jpg, .jpeg, .png" id="file04" name="file04"
+                                                   onchange="previewImage(event, 'imagePreview4', 'drop-title4', 'dropImageProduct4')">
+                                            <div class="file-icon"></div>
+                                            <div class="drop-title" id="drop-title4">Nhấn để tải ảnh lên...</div>
+                                            <div class="image-show">
+                                                <img class="image-preview" id="imagePreview4" src="#"
+                                                     alt="Image Preview">
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <span class="text-danger" id="invalid-file">Vui lòng thêm đủ 4 ảnh để thêm được thông tin sản phẩm!</span>
+                                </div>
+
+                                <div class="row d-flex flex-column flex-md-row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="d-grid gap-2 d-md-block">
+                                            <button class="btn btn-success" id="submitted-button" type="submit">
+                                                Thêm mới
+                                            </button>
+                                            <button type="reset" class="btn btn-primary">Làm mới</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <a href="/admin/san-pham" class="btn btn-danger" role="button">Trở
+                                                về</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{views/admin/lib/script_lib}"></div>
+<script src="/admin/assets/js/format-price.js"></script>
+
+<script src="/admin/assets/js/validation/validation-form-product-img.js"></script>
+</body>
+</html>

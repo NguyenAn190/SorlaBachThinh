@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solar Bách Thịnh - Dashboarh</title>
+
+    <div th:replace="~{views/admin/lib/link_lib}"></div>
+</head>
+
+<body>
+<!--  Body Wrapper -->
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+
+    <!-- Sidebar Start -->
+    <div th:replace="~{views/admin/components/aside}"></div>
+    <!--  Sidebar End -->
+
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <div th:replace="~{views/admin/components/header}"></div>
+        <!--  Header End -->
+
+        <div class="container-fluid">
+            <!--  Row 1 -->
+            <div class="row">
+                <div class="col-lg-8 d-flex align-items-strech">
+                    <div class="card w-100">
+                        <div class="card-body">
+                            <div class="d-sm-flex d-block align-items-center justify-content-between mb-9">
+                                <div class="mb-3 mb-sm-0">
+                                    <h5 class="card-title fw-semibold">Biểu đồ thống kê doanh thu tháng</h5>
+                                </div>
+                                <div>
+                                    <label>
+                                        <select class="form-select" id="yearSelector" onchange="updateChart()">
+                                            <option th:each="order :${selectYear}"
+                                                    th:value="${order}"
+                                                    th:text="${order}">
+                                            </option>
+                                        </select>
+                                    </label>
+                                </div>
+                            </div>
+                            <div id="chart"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <!-- Yearly Breakup -->
+                            <div class="card overflow-hidden">
+                                <div class="card-body p-4">
+                                    <h5 class="card-title mb-9 fw-semibold">Doanh thu trong năm</h5>
+                                    <div class="row align-items-center">
+                                        <div class="col-8">
+                                            <h4 id="revenue" class="fw-semibold mb-3"
+                                                th:text="${#numbers.formatDecimal(revenue, 0, 'COMMA', 0, 'POINT').replace(',', '.') + ' ₫'}">
+                                                $36,358</h4>
+                                            <div class="d-flex align-items-center mb-3">
+                                              <span class="me-1 rounded-circle bg-light-success round-20 d-flex align-items-center justify-content-center">
+                                                <i class="ti ti-arrow-up-left text-success"></i>
+                                              </span>
+                                                <p class="text-dark me-1 fs-3 mb-0">+9%</p>
+                                                <p class="fs-3 mb-0">Năm trước</p>
+                                            </div>
+                                            <div class="d-flex align-items-center" id="nam-doanh-thu">
+                                                <div class="me-4">
+                                                    <span class="round-8 bg-primary rounded-circle me-2 d-inline-block"></span>
+                                                    <span class="fs-2" th:text="${year}">2023</span>
+                                                </div>
+                                                <div>
+                                                    <span class="round-8 bg-light-primary rounded-circle me-2 d-inline-block"></span>
+                                                    <span class="fs-2" th:text="${year}">2023</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="d-flex justify-content-center">
+                                                <div id="breakup"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <!-- Monthly Earnings -->
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row alig n-items-start">
+                                        <div class="col-8">
+                                            <h5 class="card-title mb-9 fw-semibold">Thu nhập trung bình
+                                                trong năm các năm</h5>
+                                            <h4 class="fw-semibold mb-3"
+                                                th:text="${#numbers.formatDecimal(AverageRevenueByYear, 0, 'COMMA', 0, 'POINT').replace(',', '.') + ' ₫'}">
+                                                $6,820</h4>
+                                            <div class="d-flex align-items-center pb-1">
+                                                              <span
+                                                                      class="me-2 rounded-circle bg-light-danger round-20 d-flex align-items-center justify-content-center">
+                                                                <i class="ti ti-arrow-down-right text-danger"></i>
+                                                              </span>
+                                                <p class="text-dark me-1 fs-3 mb-0">+9%</p>
+                                                <p class="fs-3 mb-0">Năm trước</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="d-flex justify-content-end">
+                                                <div
+                                                        class="text-white bg-secondary rounded-circle p-6 d-flex align-items-center justify-content-center">
+                                                    <i class="ti ti-currency-dollar fs-6"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="earning"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12 d-flex align-items-stretch">
+                    <div class="card w-100">
+                        <div class="card-body p-4">
+                            <h5 class="card-title fw-semibold mb-4">Lịch sử 5 giao dịch gần nhất</h5>
+                            <div class="table-responsive">
+                                <table class="table text-nowrap mb-0 align-middle" id="recentTransactionHistory">
+                                    <thead class="text-dark fs-4">
+                                    <tr>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Mã HĐ</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Khách hàng</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Địa chỉ</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Ngày & giờ mua</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Giá tiền</h6>
+                                        </th>
+                                        <th class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0">Trạng thái</h6>
+                                        </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="order : ${orders}">
+                                        <td class="border-bottom-0"><h6 class="fw-semibold mb-0"
+                                                                        th:text="${order.orderId}"></h6></td>
+                                        <td class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-1" th:text="${order.fullName}">Lê Quang Nhựt</h6>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-1"
+                                                th:text="${order.province}"></h6>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-1"
+                                                th:text="${#dates.format(order.createdAt, 'dd-MM-yyyy HH:mm:ss')}"></h6>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <span class="badge bg-primary rounded-3 fw-semibold"
+                                                      th:text="${#numbers.formatDecimal(order.totalAmount, 0, 'COMMA', 0, 'POINT') + ' đ'}"></span>
+                                            </div>
+                                        </td>
+                                        <td class="border-bottom-0">
+                                            <h6 class="fw-semibold mb-0 fs-4" th:text="${order.statusOrder}">Thành
+                                                công</h6>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="py-6 px-6 text-center">
+                <p class="mb-0 fs-4">Design and Developed by <a href="#">Solar Bách Thịnh</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="profitData" th:data-profit="${profitData}"></div>
+
+<div th:replace="~{views/admin/lib/script_lib}"></div>
+<script src="/admin/assets/js/ajax/ajax-change-password.js"></script>
+<script src="/admin/assets/js/revenue/chart-year.js"></script>
+<script src="/admin/assets/js/revenue/revenue-year.js"></script>
+
+</body>
+</html>

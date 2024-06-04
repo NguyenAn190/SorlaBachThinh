@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>Solar Bách Thịnh - Đăng Ký</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+
+    <div th:replace="~{views/user/lib/link_lib}"></div>
+</head>
+
+<body>
+<!-- Spinner Start -->
+<div th:replace="~{views/user/components/spiner}"></div>
+<!-- Spinner End -->
+
+
+<!-- Topbar Start -->
+<div th:replace="~{views/user/components/topbar}"></div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<div th:replace="~{views/user/components/navbar}"></div>
+<!-- Navbar End -->
+
+
+<!-- Page Header Start -->
+<div class="container-fluid page-header py-5 mb-5">
+    <div class="container py-5">
+        <h1 class="display-3 text-white mb-3 animated slideInDown">Đăng Ký Tài Khoản</h1>
+        <nav aria-label="breadcrumb animated slideInDown">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a class="text-white" href="/dang-nhap">Trang Chủ</a></li>
+                <li class="breadcrumb-item"><a class="text-white" href="/dang-ky">Đăng Ký</a></li>
+            </ol>
+        </nav>
+    </div>
+</div>
+<!-- Page Header End -->
+
+
+<!-- Form Đăng Ký Start -->
+<div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+    <div class="container feature px-lg-0">
+        <div class="row g-0 mx-lg-0">
+            <div class="col-lg-8 contact-text py-5 wow fadeIn" data-wow-delay="0.5s">
+                <div class="p-lg-5 ps-lg-0">
+                    <h6 class="text-primary">Solar Bách Thịnh</h6>
+                    <h1 class="mb-4">Đăng Ký</h1>
+                    <p class="mb-4">Hãy tham gia cùng chúng tôi! Đăng ký để không bỏ lỡ những ưu đãi hấp dẫn.
+                    </p>
+                    <!-- from login -->
+                    <div class="login border-end">
+                        <div class="login__container">
+                            <form th:action="@{/dang-ky}" th:object="${registerDTO}" method="post" id="form-register">
+                                <div class="mb-3">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" th:field="*{email}"
+                                           th:errorclass="is-invalid">
+                                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                                       class="invalid-feedback"></p>
+                                    <p id="emailError" class="invalid-feedback"></p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="fullname">Họ và tên</label>
+                                    <input type="text" class="form-control" id="fullname" th:field="*{fullname}"
+                                           th:errorclass="is-invalid">
+                                    <p th:if="${#fields.hasErrors('fullname')}" th:errors="*{fullname}"
+                                       class="invalid-feedback"></p>
+                                    <p id="fullnameError" class="invalid-feedback"></p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="phone">Số Điện Thoại </label>
+                                    <input type="tel" class="form-control" maxlength="10" id="phone"
+                                           th:field="*{phoneNumber}" th:errorclass="is-invalid">
+                                    <p th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"
+                                       class="invalid-feedback"></p>
+                                    <p id="phoneError" class="invalid-feedback"></p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password1">Mật Khẩu <span id="togglePassword1" class="eye-icon"><i
+                                            class="fa-solid fa-eye-slash"></i></span>
+                                    </label>
+                                    <input type="password" class="form-control" id="password1" th:field="*{passwords}"
+                                           th:errorclass="is-invalid">
+                                    <p th:if="${#fields.hasErrors('passwords')}" th:errors="*{passwords}"
+                                       class="invalid-feedback"></p>
+                                    <p id="password1Error" class="invalid-feedback"></p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password2">Nhập Lại Mật Khẩu <span id="togglePassword2"
+                                                                                   class="eye-icon"><i
+                                            class="fa-solid fa-eye-slash"></i></span></label>
+                                    <input type="password" class="form-control" id="password2" th:field="*{rpasswords}"
+                                           th:errorclass="is-invalid">
+                                    <p th:if="${#fields.hasErrors('rpasswords')}" th:errors="*{rpasswords}"
+                                       class="invalid-feedback"></p>
+                                    <p id="password2Error" class="invalid-feedback"></p>
+                                </div>
+
+                                <button type="button" id="submit-button-register" class="sigpButton">Đăng Ký</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 pe-lg-0 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <div class=" d-flex justify-content-center flex-column h-100">
+                        <p class="fs-4 mb-2">Bạn đã có tài khoản ?</p>
+                        <a href="/dang-nhap" class="mb-3">Nhấn vào đây để đăng nhập</a>
+                        <div class="d-grid gap-2 d-md-block">
+                            <p class="fs-4 mb-2">Hoặc có thể đăng nhập với: </p>
+                            <!-- Nút đăng nhập bằng Facebook -->
+                            <a href="#" class="btn btn-outline-success mb-3">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/dang-nhap&response_type=code
+    &client_id=636980262370-vmvistc4ins2e1e3k52polikokp1tkm0.apps.googleusercontent.com&approval_prompt=force"
+                               class="btn btn-outline-success mb-3">
+                                <i class="fab fa-google"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row gx-0">
+        <div class="col-lg-8 border-right"></div>
+    </div>
+</div>
+<!-- Form Đăng Ký End -->
+
+<!-- Footer Start -->
+<div th:replace="~{views/user/components/footer}"></div>
+<!-- Footer End -->
+
+<!-- JavaScript Libraries -->
+<div th:replace="~{views/user/lib/script_lib}"></div>
+
+<!--validate form register front-end-->
+<script src="/user/assets/js/auth/register-validate.js"></script>
+</body>
+</html>

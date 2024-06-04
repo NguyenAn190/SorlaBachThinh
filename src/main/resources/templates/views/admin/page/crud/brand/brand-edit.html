@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solar Bách Thịnh - Cập Nhật Danh Mục</title>
+    <div th:replace="~{views/admin/lib/link_lib}"></div>
+</head>
+<body>
+
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+
+    <!-- Sidebar Start -->
+    <div th:replace="~{views/admin/components/aside}"></div>
+    <!--  Sidebar End -->
+
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <div th:replace="~{views/admin/components/header}"></div>
+        <!--  Header End -->
+
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4 mt-2">Cập nhật thương hiệu</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <form th:object="${brandsDTO}" id="form-brand"
+                                  th:action="@{/admin/chinh-sua-thuong-hieu/edit/{id}(id = ${brand.get().brandId})}"
+                                  method="post">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" th:value="${brand.get().brandId}"
+                                           name="brandId" readonly id="brandId"
+                                           placeholder="...">
+                                    <label for="brandId">Mã thương hiệu</label>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" th:value="${brand.get().brandName}"
+                                           name="brandName" id="brandName"
+                                           placeholder="...">
+                                    <label for="brandName">Tên thương hiệu</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('brandName')}"
+                                          th:errors="*{brandName}"></span>
+                                    <p id="brandNameError" class="invalid-feedback"></p>
+                                </div>
+                                <p th:errors="*{brandName}"
+                                   class="invalid-feedback">lỗi</p>
+
+                                <div class="form-floating mb-3">
+                                    <input type="tel" class="form-control" th:value="${brand.get().phoneNumber}"
+                                           name="phoneNumber" id="phoneNumber"
+                                           placeholder="..." maxlength="10">
+                                    <label for="phoneNumber">Số điện thoại</label>
+                                    <span class="text-danger invalid-form" th:if="${#fields.hasErrors('phoneNumber')}"
+                                          th:errors="*{phoneNumber}"></span>
+                                    <p id="phoneNumberError" class="invalid-feedback"></p>
+                                </div>
+
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" th:value="${brand.get().countryOfOrigin}"
+                                           name="countryOfOrigin" id="countryOfOrigin"
+                                           placeholder="...">
+                                    <label for="countryOfOrigin">Địa chỉ thương hiệu</label>
+                                    <span class="text-danger invalid-form"
+                                          th:if="${#fields.hasErrors('countryOfOrigin')}"
+                                          th:errors="*{countryOfOrigin}"></span>
+                                    <p id="countryOfOriginError" class="invalid-feedback"></p>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" th:value="${brand.get().websiteUrl}"
+                                           name="websiteUrl" id="websiteUrl"
+                                           placeholder="...">
+                                    <label for="websiteUrl">Website</label>
+                                    <p id="websiteUrlError" class="invalid-feedback"></p>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" th:value="${brand.get().brandDescription}"
+                                           name="brandDescription" id="brandDescription"
+                                           placeholder="...">
+                                    <label for="brandDescription">Chi tiết thương hiệu</label>
+                                    <p id="brandDescriptionError" class="invalid-feedback"></p>
+                                </div>
+
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" name="isStatusDelete">
+                                        <option th:each="option : ${statusOptions}"
+                                                th:value="${option}"
+                                                th:text="${option}"
+                                                th:selected="${option == brand.get().isStatusDelete}">
+                                        </option>
+                                    </select>
+                                    <label>Thương hiệu</label>
+                                </div>
+                                <div class="row d-flex flex-column flex-md-row mt-3">
+                                    <div class="col-md-6">
+                                        <div class="d-grid gap-2 d-md-block">
+                                            <button class="btn btn-success" id="submit-button-brand" type="submit">
+                                                Cập nhật
+                                            </button>
+                                            <button type="reset" class="btn btn-primary">Làm mới</button>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                            <a href="/admin/danh-sach-thuong-hieu" class="btn btn-danger" role="button">Trở
+                                                về</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{views/admin/lib/script_lib}"></div>
+
+<!--validate form brand front-end-->
+<script src="/user/assets/js/auth/brand-validate.js"></script>
+
+</body>
+</html>

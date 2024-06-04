@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Solar Bách Thịnh - Lịch Sử Cập Nhật</title>
+    <div th:replace="~{views/admin/lib/link_lib}"></div>
+</head>
+<body>
+
+<div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+     data-sidebar-position="fixed" data-header-position="fixed">
+
+    <!-- Sidebar Start -->
+    <div th:replace="~{views/admin/components/aside}"></div>
+    <!--  Sidebar End -->
+
+    <div class="body-wrapper">
+        <!--  Header Start -->
+        <div th:replace="~{views/admin/components/header}"></div>
+        <!--  Header End -->
+
+        <div class="container-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title fw-semibold mb-4 mt-2">Lịch sử cập nhật sản phẩm</h5>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table" id="sortHistoryList">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Người cập nhật</th>
+                                        <th scope="col">Ngày cập nhật</th>
+                                        <th scope="col">Giờ cập nhật</th>
+                                        <th scope="col">Mô tả cập nhật</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="history,start : ${histories}">
+                                        <th th:text="${start.index + 1}"></th>
+                                        <th th:text="${history.accountsByAccountId.fullname}"></th>
+                                        <th th:text="${#dates.format(history.updateDate, 'dd-MM-yyyy')}"></th>
+                                        <th th:text="${#dates.format(history.updateDate, 'HH:mm:ss')}"></th>
+                                        <th th:text="${history.updateDescription}"></th>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{views/admin/lib/script_lib}"></div>
+
+</body>
+</html>
